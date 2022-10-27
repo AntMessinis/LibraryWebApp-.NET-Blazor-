@@ -16,12 +16,14 @@ namespace Data
         public string Firstname { get; set; } = null!;
         [StringLength(50)]
         public string Lastname { get; set; } = null!;
+        [StringLength(500)]
+        public string AuthorImageUrl { get; set; }
         [Column(TypeName = "ntext")]
         public string MiniBio { get; set; }
         public Guid CountryId { get; set; }
         [ForeignKey("CountryId")]
         public Country CountryOfOrigin { get; set; }
         public IEnumerable<Category> Categories { get; set; }
-        //public IEnumerable<Book> BooksAuthored { get; set; }
+        public IEnumerable<Book> BooksAuthored { get; set; }
     }
 }

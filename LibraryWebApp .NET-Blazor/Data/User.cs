@@ -19,11 +19,11 @@ namespace Data
         public string Email { get; set; } = null!;
         public bool IsAdmin { get; set; }
         [StringLength(500)]
-        public string ImageUrl { get; set; }
-
+        public string UserImageUrl { get; set; }
         public Guid MembershipId { get; set; }
         [ForeignKey("MembershipId")]
         public MembershipDetails UserMemberhipDetails { get; set; } = null!;
+        public IEnumerable<BorrowDetails> BooksCurrentlyBorrowed { get; set; }
 
 
     }

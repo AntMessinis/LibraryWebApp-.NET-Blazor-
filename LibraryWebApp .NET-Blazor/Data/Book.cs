@@ -17,13 +17,19 @@ namespace Data
         public string Title { get; set; } = null!;
         [StringLength(50)]
         public string Isbn { get; set; } = null!;
-        public int LanguageId { get; set; }
+        [Column(TypeName = "ntext")]
+        public string Description { get; set; } = null!;
+        public Guid LanguageId { get; set; }
         [ForeignKey("LanguageId")]
         public Language Language { get; set; }
         public int CopiesInLibrary { get; set; }
-
+        public bool NeedsPremiumMembershipToBorrow { get; set; }
+        public Guid PublisherId { get; set; }
+        [ForeignKey("PublisherId")]
+        public Publisher Publisher { get; set; }
         public IEnumerable<Category> Categories { get; set; }
         public IEnumerable<Author> Authors { get; set; }
+        public IEnumerable<BorrowDetails> CopiesCurrentlyBorrowed { get; set; }
 
     }
 }

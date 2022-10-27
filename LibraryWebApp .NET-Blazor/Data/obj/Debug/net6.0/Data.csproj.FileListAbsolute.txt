@@ -1,0 +1,14 @@
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Data\bin\Debug\net6.0\Data.deps.json
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Data\bin\Debug\net6.0\Data.runtimeconfig.json
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Data\bin\Debug\net6.0\Data.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Data\bin\Debug\net6.0\Data.pdb
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Data\obj\Debug\net6.0\Data.csproj.AssemblyReference.cache
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Data\obj\Debug\net6.0\Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Data\obj\Debug\net6.0\Data.AssemblyInfoInputs.cache
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Data\obj\Debug\net6.0\Data.AssemblyInfo.cs
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Data\obj\Debug\net6.0\Data.csproj.CoreCompileInputs.cache
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Data\obj\Debug\net6.0\Data.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Data\obj\Debug\net6.0\refint\Data.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Data\obj\Debug\net6.0\Data.pdb
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Data\obj\Debug\net6.0\Data.genruntimeconfig.cache
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Data\obj\Debug\net6.0\ref\Data.dll
