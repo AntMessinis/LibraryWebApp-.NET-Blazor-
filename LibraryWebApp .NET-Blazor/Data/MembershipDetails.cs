@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
+    
     public class MembershipDetails : BaseEntity
     {
         [Required]
@@ -19,7 +21,7 @@ namespace Data
         public string Lastname { get; set; } = null!;
         public string Address { get; set; }
 
-        [Required]
+        
         public Guid CountryId { get; set; }
 
         [ForeignKey("CountryId")]
