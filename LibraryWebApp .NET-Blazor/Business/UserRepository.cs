@@ -1,7 +1,9 @@
-﻿using Business.IRepository;
+﻿using AutoMapper;
+using Business.IRepository;
 using Data;
 using Data.DataContext;
 using DTO;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,35 +15,71 @@ namespace Business
     public class UserRepository : IUserRepository
     {
         private readonly LibraryDbContext _db;
+        private readonly IMapper _mapper;
 
-        public UserRepository(LibraryDbContext db)
+        public UserRepository(LibraryDbContext db, IMapper mapper)
         {
             _db = db;
+            _mapper = mapper;
         }
 
-        public Task<int> DeleteAsync(int id)
+        public async Task<UserDto> InsertAsync(UserDto dto)
         {
-            throw new NotImplementedException();
+            var user = _mapper.Map<UserDto, User>(dto);
+            if (user != null)
+            {
+                var insertedUser = await _db.Users.AddAsync(user);
+                await _db.SaveChangesAsync();
+                return _mapper.Map<User, UserDto>(insertedUser.Entity);
+            }
+            return new UserDto();
         }
 
-        public Task<IEnumerable<User>> GetAll()
+        public async Task<int> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var user = _db.Users.FirstOrDefaultAsync(u => u.Id == id);
+            if (user != null)
+            {
+                _db.Remove(user);
+                return await _db.SaveChangesAsync();
+            }
+            
+            return 0;
         }
 
-        public Task<User> GetByIdAsync(int id)
+        public async Task<IEnumerable<UserDto>> GetAll()
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(_db.Users!);
         }
 
-        public Task<User> InsertAsync(UserDto dto)
+        public async Task<UserDto> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var user = await _db.Users.Include(u => u.UserMemberhipDetails)
+                                    .Include(u => u.BooksCurrentlyBorrowed)
+                                    .FirstOrDefaultAsync(u => u.Id==id);
+            if (user != null)
+            {
+                return _mapper.Map<User, UserDto>(user);
+            }
+            return new UserDto();
         }
 
-        public Task<User> UpdateAsync(UserDto dto)
+        
+
+        public async Task<UserDto> UpdateAsync(UserDto dto)
         {
-            throw new NotImplementedException();
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == dto.Id);
+            if (user != null)
+            {
+                user.Email = dto.Email;
+                user.Password = dto.Password;
+                user.UserMemberhipDetails = _mapper.Map<MembershipDetailsDto,MembershipDetails>(dto.UserMemberhipDetails);
+                user.UserImageUrl = dto.UserImageUrl;
+                _db.Users.Update(user);
+                await _db.SaveChangesAsync();
+                return _mapper.Map<User, UserDto>(user);
+            }
+            return new UserDto();
         }
     }
 }
