@@ -16,7 +16,7 @@ namespace DTO
         [Required(ErrorMessage = "You must add an email for this account")]
         public string Email { get; set; }
         public string UserImageUrl { get; set; }
-        //public MembershipDetailsDto UserMemberhipDetails { get; set; }
-        //public IEnumerable<BorrowDetailsDto> BooksCurrentlyBorrowed { get; set; }
+        public MembershipDetailsDto UserMemberhipDetails { get; set; }
+        public IEnumerable<BorrowDetailsDto> BooksCurrentlyBorrowed { get; set; }
     }
 }
