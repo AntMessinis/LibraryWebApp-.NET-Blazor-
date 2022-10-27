@@ -1,5 +1,7 @@
+using Data.LibraryDbContext;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdminPanel
 {
@@ -12,6 +14,8 @@ namespace AdminPanel
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
+            builder.Services.AddDbContext<LibraryDbContext>(options => 
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             
 
             var app = builder.Build();
