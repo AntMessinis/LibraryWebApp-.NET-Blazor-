@@ -22,6 +22,7 @@ namespace AdminPanel
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+            builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
             
 
             var app = builder.Build();
