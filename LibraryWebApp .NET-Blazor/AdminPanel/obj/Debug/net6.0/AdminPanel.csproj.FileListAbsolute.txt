@@ -63,3 +63,9 @@ D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazo
 D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\obj\Debug\net6.0\AdminPanel.csproj.CopyComplete
 D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\Humanizer.dll
 D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\AutoMapper.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\Business.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\DTO.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\Business.pdb
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\DTO.pdb

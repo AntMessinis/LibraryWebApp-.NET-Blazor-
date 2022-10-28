@@ -1,0 +1,12 @@
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\DTO\bin\Debug\net6.0\DTO.deps.json
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\DTO\bin\Debug\net6.0\DTO.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\DTO\bin\Debug\net6.0\DTO.pdb
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\DTO\obj\Debug\net6.0\DTO.csproj.AssemblyReference.cache
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\DTO\obj\Debug\net6.0\DTO.GeneratedMSBuildEditorConfig.editorconfig
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\DTO\obj\Debug\net6.0\DTO.AssemblyInfoInputs.cache
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\DTO\obj\Debug\net6.0\DTO.AssemblyInfo.cs
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\DTO\obj\Debug\net6.0\DTO.csproj.CoreCompileInputs.cache
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\DTO\obj\Debug\net6.0\DTO.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\DTO\obj\Debug\net6.0\refint\DTO.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\DTO\obj\Debug\net6.0\DTO.pdb
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\DTO\obj\Debug\net6.0\ref\DTO.dll
