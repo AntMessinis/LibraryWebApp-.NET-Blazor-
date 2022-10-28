@@ -26,13 +26,11 @@ namespace Business
         public async Task<UserDto> InsertAsync(UserDto dto)
         {
             var user = _mapper.Map<UserDto, User>(dto);
-            if (user != null)
-            {
-                var insertedUser = await _db.Users.AddAsync(user);
-                await _db.SaveChangesAsync();
-                return _mapper.Map<User, UserDto>(insertedUser.Entity);
-            }
-            return new UserDto();
+            user.UserMemberhipDetails.MembershipCreationDate = DateTime.UtcNow;
+            var insertedUser = await _db.Users.AddAsync(user);
+            await _db.SaveChangesAsync();
+            return _mapper.Map<User, UserDto>(insertedUser.Entity);    
+            
         }
 
         public async Task<int> DeleteAsync(Guid id)
@@ -49,7 +47,7 @@ namespace Business
 
         public async Task<IEnumerable<UserDto>> GetAll()
         {
-            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(_db.Users!);
+            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(await _db.Users!.ToListAsync());
         }
 
         public async Task<UserDto> GetByIdAsync(Guid id)

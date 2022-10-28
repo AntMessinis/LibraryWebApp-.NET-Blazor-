@@ -1,3 +1,5 @@
+using Business;
+using Business.IRepository;
 using Data.DataContext;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -16,6 +18,10 @@ namespace AdminPanel
             builder.Services.AddServerSideBlazor();
             builder.Services.AddDbContext<LibraryDbContext>(options => 
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ICountryRepository, CountryRepository>();
             
 
             var app = builder.Build();

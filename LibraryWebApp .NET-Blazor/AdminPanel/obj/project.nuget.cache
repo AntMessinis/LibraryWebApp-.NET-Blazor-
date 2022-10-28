@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "jJT61OIPaqn2ODP3KhYoKxVKFnrqZ8pbFIakLoUuGsoCF3oyVyo6qhdl70EiogR2R2oJm0JbaAAReeiPPjZtZA==",
+  "dgSpecHash": "12XLamGlqxyogHui0W8Jh8pOCDNQ9+9NvJwLaLhSQT4c2s65xiWhf1Hxq2dOtv61+YAD4925ZrlAhrImw4gVlQ==",
   "success": true,
   "projectFilePath": "D:\\Antonis\\Coding_Factory\\C#\\LibraryWebApp-.NET-Blazor-\\LibraryWebApp .NET-Blazor\\AdminPanel\\AdminPanel.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Antonis\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\Antonis\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\Antonis\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
-    "C:\\Users\\Antonis\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\Antonis\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Antonis\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\Antonis\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\Antonis\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.10\\microsoft.entityframeworkcore.6.0.10.nupkg.sha512",
