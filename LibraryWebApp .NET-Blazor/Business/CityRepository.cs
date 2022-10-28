@@ -57,15 +57,15 @@ namespace Business
 
         public async Task<CityDto> UpdateAsync(CityDto dto)
         {
-            var city = await _db.Cities.Include(c => c.Country).FirstOrDefaultAsync(c => c.Id == dto.Id);
-            if (city != null)
+            var cityToUpdate = await _db.Cities.Include(c => c.Country).FirstOrDefaultAsync(c => c.Id == dto.Id);
+            if (cityToUpdate != null)
             {
-                city.CityName = dto.CityName;
-                city.Country = _mapper.Map<CountryDto, Country>(dto.Country);
-                city.CountryId = city.Country.Id;
-                _db.Cities.Update(city);
+                cityToUpdate.CityName = dto.CityName;
+                cityToUpdate.Country = _mapper.Map<CountryDto, Country>(dto.Country);
+                cityToUpdate.CountryId = cityToUpdate.Country.Id;
+                var updatedCity = _db.Cities.Update(cityToUpdate);
                 await _db.SaveChangesAsync();
-                return _mapper.Map<City, CityDto>(city);
+                return _mapper.Map<City, CityDto>(updatedCity.Entity);
             }
             return new CityDto();
         }

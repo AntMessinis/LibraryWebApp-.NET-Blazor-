@@ -66,16 +66,16 @@ namespace Business
 
         public async Task<UserDto> UpdateAsync(UserDto dto)
         {
-            var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == dto.Id);
-            if (user != null)
+            var userToUpdate = await _db.Users.FirstOrDefaultAsync(u => u.Id == dto.Id);
+            if (userToUpdate != null)
             {
-                user.Email = dto.Email;
-                user.Password = dto.Password;
-                user.UserMemberhipDetails = _mapper.Map<MembershipDetailsDto,MembershipDetails>(dto.UserMemberhipDetails);
-                user.UserImageUrl = dto.UserImageUrl;
-                _db.Users.Update(user);
+                userToUpdate.Email = dto.Email;
+                userToUpdate.Password = dto.Password;
+                userToUpdate.UserMemberhipDetails = _mapper.Map<MembershipDetailsDto,MembershipDetails>(dto.UserMemberhipDetails);
+                userToUpdate.UserImageUrl = dto.UserImageUrl;
+                var updatedUser = _db.Users.Update(userToUpdate);
                 await _db.SaveChangesAsync();
-                return _mapper.Map<User, UserDto>(user);
+                return _mapper.Map<User, UserDto>(updatedUser.Entity);
             }
             return new UserDto();
         }

@@ -19,6 +19,6 @@ namespace DTO
         public string MiniBio { get; set; } = null!;
         public string ImageUrl { get; set; } = null!;
         public IEnumerable<CategoryDto> Categories { get; set; }
-        //public IEnumerable<BookDto> books { get; set; }
+        public IEnumerable<BookDto> BooksAuthored { get; set; }
     }
 }

@@ -59,11 +59,11 @@ namespace Business
 
         public async Task<CountryDto> UpdateAsync(CountryDto dto)
         {
-            var country = await _db.Countries.FirstOrDefaultAsync(c => c.Id == dto.Id);
-            if (country != null)
+            var countryToUpdate = await _db.Countries.FirstOrDefaultAsync(c => c.Id == dto.Id);
+            if (countryToUpdate != null)
             {
-                country.CountryName = dto.CountryName;
-                var updatedCountry = _db.Countries.Update(country);
+                countryToUpdate.CountryName = dto.CountryName;
+                var updatedCountry = _db.Countries.Update(countryToUpdate);
                 await _db.SaveChangesAsync();
                 return _mapper.Map<Country, CountryDto>(updatedCountry.Entity);
             }

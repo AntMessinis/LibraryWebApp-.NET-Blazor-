@@ -21,7 +21,9 @@ namespace AdminPanel
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
             builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+            builder.Services.AddScoped<ICityRepository, CityRepository>();
             builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
             
 

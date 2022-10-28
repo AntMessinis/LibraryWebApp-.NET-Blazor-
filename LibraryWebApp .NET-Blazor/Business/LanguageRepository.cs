@@ -64,13 +64,13 @@ namespace Business
 
         public async Task<LanguageDto> UpdateAsync(LanguageDto dto)
         {
-            var lang = await _db.Languages.FirstOrDefaultAsync(l => l.Id == dto.Id);
-            if (lang != null)
+            var langToUpdate = await _db.Languages.FirstOrDefaultAsync(l => l.Id == dto.Id);
+            if (langToUpdate != null)
             {
-                lang.LanuageName = dto.LanguageName;
-                _db.Languages.Update(lang);
+                langToUpdate.LanuageName = dto.LanguageName;
+                var updatedLang = _db.Languages.Update(langToUpdate);
                 await _db.SaveChangesAsync();
-                return _mapper.Map<Language, LanguageDto>(lang);
+                return _mapper.Map<Language, LanguageDto>(updatedLang.Entity);
             }
             return new LanguageDto();
         }
