@@ -24,7 +24,7 @@ namespace Business
             _mapper = mapper;
         }
 
-        public async Task<int> DeleteAsync(Guid id)
+        public async Task<int> DeleteAsync(int id)
         {
             var langToDelete = await _db.Languages.FirstOrDefaultAsync(l => l.Id == id);
             if (langToDelete != null)
@@ -40,7 +40,7 @@ namespace Business
             return _mapper.Map<IEnumerable<Language>, IEnumerable<LanguageDto>>(await _db.Languages.ToListAsync());
         }
 
-        public async Task<LanguageDto> GetByIdAsync(Guid id)
+        public async Task<LanguageDto> GetByIdAsync(int id)
         {
             var lang = await _db.Languages.FirstOrDefaultAsync(l => l.Id == id);
             if (lang != null)

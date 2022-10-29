@@ -19,12 +19,24 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/AdminPanel/Pages/Countries/CountryForm.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRyaWVzXENvdW50cnlGb3JtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/AdminPanel/Pages/Countries/CountryList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRyaWVzXENvdW50cnlMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/AdminPanel/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/AdminPanel/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/AdminPanel/Shared/_Components/_DeleteConfirmButton.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXF9Db21wb25lbnRzXF9EZWxldGVDb25maXJtQnV0dG9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/AdminPanel/_Imports.razor]

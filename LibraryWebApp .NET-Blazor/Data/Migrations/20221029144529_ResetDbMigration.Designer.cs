@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20221028132745_UpdatedId")]
-    partial class UpdatedId
+    [Migration("20221029144529_ResetDbMigration")]
+    partial class ResetDbMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,11 +26,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("AuthorBook", b =>
                 {
-                    b.Property<Guid>("AuthorsId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("AuthorsId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("BooksAuthoredId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("BooksAuthoredId")
+                        .HasColumnType("int");
 
                     b.HasKey("AuthorsId", "BooksAuthoredId");
 
@@ -41,18 +41,20 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Author", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AuthorImageUrl")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<Guid?>("CountryId")
+                    b.Property<int?>("CountryId")
                         .IsRequired()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
                     b.Property<string>("Firstname")
                         .IsRequired()
@@ -80,9 +82,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.BaseCategory", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("BaseCategoryName")
                         .IsRequired()
@@ -98,9 +102,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Book", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("CopiesInLibrary")
                         .HasColumnType("int");
@@ -114,16 +120,16 @@ namespace Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<Guid?>("LanguageId")
+                    b.Property<int?>("LanguageId")
                         .IsRequired()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
                     b.Property<bool>("NeedsPremiumMembershipToBorrow")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("PublisherId")
+                    b.Property<int?>("PublisherId")
                         .IsRequired()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -147,15 +153,17 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.BorrowDetails", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("ActualReturnDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("BorrowDate")
                         .HasColumnType("datetime2");
@@ -166,8 +174,8 @@ namespace Data.Migrations
                     b.Property<DateTime>("ReturnDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -178,18 +186,20 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Category", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid?>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<Guid>("BaseCategoryId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid?>("BookId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("BaseCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BookId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
@@ -211,16 +221,18 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.City", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CityName")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("CountryId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -234,9 +246,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Country", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CountryName")
                         .IsRequired()
@@ -252,9 +266,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Language", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("LanuageName")
                         .IsRequired()
@@ -270,9 +286,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.MembershipDetails", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -281,9 +299,9 @@ namespace Data.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("CityId")
+                    b.Property<int?>("CityId")
                         .IsRequired()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
                     b.Property<string>("Firstname")
                         .IsRequired()
@@ -318,9 +336,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Publisher", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("PublisherName")
                         .IsRequired()
@@ -337,9 +357,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -348,8 +370,8 @@ namespace Data.Migrations
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("MembershipId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("MembershipId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Password")
                         .IsRequired()

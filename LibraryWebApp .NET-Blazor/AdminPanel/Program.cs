@@ -1,9 +1,12 @@
+using AdminPanel.Helper;
 using Business;
 using Business.IRepository;
 using Data.DataContext;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
+using Syncfusion.Blazor;
+using Syncfusion.Licensing;
 
 namespace AdminPanel
 {
@@ -12,13 +15,18 @@ namespace AdminPanel
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            //Register SyncfustionLicense for SyncFusionComponents
+            string SyncFusionLicense = GetSyncFusionLicense.GetLicenseCodeFromFile("SyncFusionLicense.txt", "C:\\Users\\Antonis\\Desktop");
+            SyncfusionLicenseProvider.RegisterLicense(SyncFusionLicense);
 
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddDbContext<LibraryDbContext>(options => 
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddSyncfusionBlazor();
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();

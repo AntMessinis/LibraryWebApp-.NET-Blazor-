@@ -20,7 +20,7 @@ namespace Data
         public string AuthorImageUrl { get; set; }
         [Column(TypeName = "ntext")]
         public string MiniBio { get; set; }
-        public Guid? CountryId { get; set; }
+        public int? CountryId { get; set; }
         [ForeignKey("CountryId")]
         public Country CountryOfOrigin { get; set; }
         public IEnumerable<Category> Categories { get; set; }

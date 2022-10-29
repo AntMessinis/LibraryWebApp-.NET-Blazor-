@@ -23,7 +23,7 @@ namespace Business
             _mapper = mapper;
         }
 
-        public async Task<int> DeleteAsync(Guid id)
+        public async Task<int> DeleteAsync(int id)
         {
             var bookToDelete = await _db.Books.FirstOrDefaultAsync(b => b.Id == id);
             if (bookToDelete != null)
@@ -43,7 +43,7 @@ namespace Business
                                     .Include(b => b.CopiesCurrentlyBorrowed).ToListAsync()); ;
         }
 
-        public async Task<BookDto> GetByIdAsync(Guid id)
+        public async Task<BookDto> GetByIdAsync(int id)
         {
             var book = await _db.Books.Include(b => b.Publisher)
                                     .Include(b => b.Authors)

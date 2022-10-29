@@ -14,7 +14,7 @@ namespace Data
     {
         public string CityName { get; set; } = null!;
         
-        public Guid CountryId { get; set; }
+        public int CountryId { get; set; }
         [ForeignKey("CountryId")]
         public Country Country { get; set; } = null!;
     }

@@ -33,7 +33,7 @@ namespace Business
             
         }
 
-        public async Task<int> DeleteAsync(Guid id)
+        public async Task<int> DeleteAsync(int id)
         {
             var user = _db.Users.FirstOrDefaultAsync(u => u.Id == id);
             if (user != null)
@@ -50,7 +50,7 @@ namespace Business
             return _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(await _db.Users!.ToListAsync());
         }
 
-        public async Task<UserDto> GetByIdAsync(Guid id)
+        public async Task<UserDto> GetByIdAsync(int id)
         {
             var user = await _db.Users.Include(u => u.UserMemberhipDetails)
                                     .Include(u => u.BooksCurrentlyBorrowed)

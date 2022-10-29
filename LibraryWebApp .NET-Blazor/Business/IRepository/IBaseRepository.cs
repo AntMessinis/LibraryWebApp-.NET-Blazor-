@@ -10,10 +10,10 @@ namespace Business.IRepository
 {
     public interface IBaseRepository<TEntity, TDto> where TEntity: BaseEntity where TDto : BaseDto
     {
-        Task<TDto> GetByIdAsync(Guid id);
+        Task<TDto> GetByIdAsync(int id);
         Task<TDto> InsertAsync(TDto dto);
         Task<TDto> UpdateAsync(TDto dto);
-        Task<int> DeleteAsync(Guid id);
+        Task<int> DeleteAsync(int id);
         Task<IEnumerable<TDto>> GetAll();
     }
 }

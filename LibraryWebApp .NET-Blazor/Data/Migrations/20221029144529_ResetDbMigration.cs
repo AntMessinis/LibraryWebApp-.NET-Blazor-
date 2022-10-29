@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class UpdatedMigration : Migration
+    public partial class ResetDbMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,8 @@ namespace Data.Migrations
                 name: "BasicCategories",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     BaseCategoryName = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -25,7 +26,8 @@ namespace Data.Migrations
                 name: "Countries",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CountryName = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -37,7 +39,8 @@ namespace Data.Migrations
                 name: "Languages",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     LanuageName = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -49,7 +52,8 @@ namespace Data.Migrations
                 name: "Publishers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PublisherName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -61,12 +65,13 @@ namespace Data.Migrations
                 name: "Authors",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Firstname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Lastname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     AuthorImageUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     MiniBio = table.Column<string>(type: "ntext", nullable: false),
-                    CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CountryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,9 +88,10 @@ namespace Data.Migrations
                 name: "Cities",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CityName = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CountryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,14 +108,15 @@ namespace Data.Migrations
                 name: "Books",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Isbn = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "ntext", nullable: false),
-                    LanguageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LanguageId = table.Column<int>(type: "int", nullable: false),
                     CopiesInLibrary = table.Column<int>(type: "int", nullable: false),
                     NeedsPremiumMembershipToBorrow = table.Column<bool>(type: "bit", nullable: false),
-                    PublisherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    PublisherId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -132,12 +139,13 @@ namespace Data.Migrations
                 name: "MembershipDetails",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Firstname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Lastname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     MembershipCreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     MembershipExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -159,8 +167,8 @@ namespace Data.Migrations
                 name: "AuthorBook",
                 columns: table => new
                 {
-                    AuthorsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BooksAuthoredId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AuthorsId = table.Column<int>(type: "int", nullable: false),
+                    BooksAuthoredId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -183,11 +191,12 @@ namespace Data.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryName = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    BaseCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    BaseCategoryId = table.Column<int>(type: "int", nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: true),
+                    BookId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -214,13 +223,14 @@ namespace Data.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IsAdmin = table.Column<bool>(type: "bit", nullable: false),
                     UserImageUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    MembershipId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    MembershipId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -237,9 +247,10 @@ namespace Data.Migrations
                 name: "BorrowDetails",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    BookId = table.Column<int>(type: "int", nullable: false),
                     BorrowDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsReturned = table.Column<bool>(type: "bit", nullable: false),

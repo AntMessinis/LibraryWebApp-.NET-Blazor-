@@ -20,7 +20,7 @@ namespace Data
         public bool IsAdmin { get; set; }
         [StringLength(500)]
         public string UserImageUrl { get; set; }
-        public Guid MembershipId { get; set; }
+        public int MembershipId { get; set; }
         [ForeignKey("MembershipId")]
         public MembershipDetails UserMemberhipDetails { get; set; } = null!;
         public IEnumerable<BorrowDetails> BooksCurrentlyBorrowed { get; set; }

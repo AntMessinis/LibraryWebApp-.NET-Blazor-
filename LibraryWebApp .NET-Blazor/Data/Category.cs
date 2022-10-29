@@ -13,7 +13,7 @@ namespace Data
     public class Category : BaseEntity
     {
         public string CategoryName { get; set; } = null!;
-        public Guid BaseCategoryId { get; set; }
+        public int BaseCategoryId { get; set; }
         [ForeignKey("BaseCategoryId")]
         public BaseCategory BasicCategory { get; set; }
     }

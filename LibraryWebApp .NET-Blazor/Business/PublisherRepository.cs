@@ -23,7 +23,7 @@ namespace Business
             _mapper = mapper;
         }
 
-        public async Task<int> DeleteAsync(Guid id)
+        public async Task<int> DeleteAsync(int id)
         {
             var publisherToDelete = await _db.Publishers.FirstOrDefaultAsync(p => p.Id == id);
             if (publisherToDelete != null)
@@ -39,7 +39,7 @@ namespace Business
             return _mapper.Map<IEnumerable<Publisher>, IEnumerable<PublisherDto>>(await _db.Publishers.ToListAsync());
         }
 
-        public async Task<PublisherDto> GetByIdAsync(Guid id)
+        public async Task<PublisherDto> GetByIdAsync(int id)
         {
             var publisher = await _db.Publishers.Include(p => p.BooksPublished).FirstOrDefaultAsync(p => p.Id == id);
             if (publisher != null)

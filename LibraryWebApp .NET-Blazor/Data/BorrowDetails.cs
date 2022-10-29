@@ -11,10 +11,10 @@ namespace Data
 {
     public class BorrowDetails : BaseEntity
     {
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
-        public Guid BookId { get; set; }
+        public int BookId { get; set; }
         [ForeignKey("UserId")]
         public Book Book { get; set; }
         [Required]

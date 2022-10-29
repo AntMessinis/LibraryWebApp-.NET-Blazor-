@@ -23,7 +23,7 @@ namespace Business
             _mapper = mapper;
         }
 
-        public async Task<int> DeleteAsync(Guid id)
+        public async Task<int> DeleteAsync(int id)
         {
             var country = await _db.Countries.FirstOrDefaultAsync(c => c.Id == id);
             if (country != null)
@@ -39,7 +39,7 @@ namespace Business
             return  _mapper.Map<IEnumerable<Country>, IEnumerable<CountryDto>>(await _db.Countries!.ToListAsync());
         }
 
-        public async Task<CountryDto> GetByIdAsync(Guid id)
+        public async Task<CountryDto> GetByIdAsync(int id)
         {
             var country = await _db.Countries.FirstOrDefaultAsync(c => c.Id == id);
             if (country != null)

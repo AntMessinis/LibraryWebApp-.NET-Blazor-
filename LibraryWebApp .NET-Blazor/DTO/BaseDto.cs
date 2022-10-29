@@ -8,6 +8,6 @@ namespace DTO
 {
     public abstract class BaseDto
     {
-        public Guid? Id { get; set; }
+        public int? Id { get; set; }
     }
 }

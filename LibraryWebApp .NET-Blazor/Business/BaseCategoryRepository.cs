@@ -23,7 +23,7 @@ namespace Business
             _mapper = mapper;
         }
 
-        public async Task<int> DeleteAsync(Guid id)
+        public async Task<int> DeleteAsync(int id)
         {
             var baseCatToDelete = await _db.BasicCategories.FirstOrDefaultAsync(b => b.Id == id);
             if (baseCatToDelete != null)
@@ -39,7 +39,7 @@ namespace Business
             return _mapper.Map<IEnumerable<BaseCategory>, IEnumerable<BaseCategoryDto>>(await _db.BasicCategories.ToListAsync());
         }
 
-        public async Task<BaseCategoryDto> GetByIdAsync(Guid id)
+        public async Task<BaseCategoryDto> GetByIdAsync(int id)
         {
             var baseCat = await _db.BasicCategories.FirstOrDefaultAsync(b => b.Id == id);
             if (baseCat != null)

@@ -16,7 +16,7 @@ namespace Data
         public string Lastname { get; set; } = null!;
         public string Address { get; set; }
         public string PhoneNumber { get; set; } = null!;
-        public Guid? CityId { get; set; }
+        public int? CityId { get; set; }
         [ForeignKey("CityId")]
         public City CityOfResidence { get; set; }
         [Required]

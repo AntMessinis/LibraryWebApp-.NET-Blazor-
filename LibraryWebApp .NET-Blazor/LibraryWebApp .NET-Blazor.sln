@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminPanel", "AdminPanel\Ad
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{434DD268-CC9D-4229-9479-FA45E1722BC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{48ADE149-DBB1-492A-B737-9188481A2ED8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{48ADE149-DBB1-492A-B737-9188481A2ED8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{470B1CEE-FE2F-4A1B-A9E1-002E25AB7018}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{470B1CEE-FE2F-4A1B-A9E1-002E25AB7018}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
