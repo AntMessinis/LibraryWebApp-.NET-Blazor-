@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XAxh0CsDYCCJNPVKG6Bvb3+C+sheISyhLp2HDS+4Ns4=",
+  "Hash": "sz/au1UvYfwjyz00mOMp1jfSUtZeKdnSwH49yp8THW0=",
   "Source": "AdminPanel",
   "BasePath": "_content/AdminPanel",
   "Mode": "Default",
@@ -1256,6 +1256,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\loading.gif"
+    },
+    {
+      "Identity": "D:\\Antonis\\Coding_Factory\\C#\\LibraryWebApp-.NET-Blazor-\\LibraryWebApp .NET-Blazor\\AdminPanel\\wwwroot\\js\\toastr.js",
+      "SourceId": "AdminPanel",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Antonis\\Coding_Factory\\C#\\LibraryWebApp-.NET-Blazor-\\LibraryWebApp .NET-Blazor\\AdminPanel\\wwwroot\\",
+      "BasePath": "_content/AdminPanel",
+      "RelativePath": "js/toastr.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\toastr.js"
     }
   ]
 }

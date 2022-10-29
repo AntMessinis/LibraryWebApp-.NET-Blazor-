@@ -1,6 +1,7 @@
 ﻿@page "/countries/create"
 @page "/countries/update/{CountryId:int}"
 @inject ICountryRepository _countryRepository
+@inject IJSRuntime _jsRuntime
 @inject NavigationManager _navigationManager
 
 <div class="row my-2">
@@ -57,8 +58,11 @@
         if (CountryId > 0)
         {
             await _countryRepository.UpdateAsync(Country);
+            await _jsRuntime.ToastrSuccess("Country Updated");
+
         } else {
             await _countryRepository.InsertAsync(Country);
+            await _jsRuntime.ToastrSuccess("Country Created");
         }
         _navigationManager.NavigateTo("/countries");
     }
