@@ -23,6 +23,6 @@ namespace DTO
         public PublisherDto Publisher { get; set; }
         public IEnumerable<CategoryDto> Categories { get; set; }
         public IEnumerable<AuthorDto> Authors { get; set; }
-        //public IEnumerable<BorrowDetailsDto> CopiesCurrentlyBorrowed { get; set; }
+        public IEnumerable<BorrowDetailsDto> CopiesCurrentlyBorrowed { get; set; }
     }
 }
