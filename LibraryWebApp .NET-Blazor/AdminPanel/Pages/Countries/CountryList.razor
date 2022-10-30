@@ -1,6 +1,6 @@
 ﻿@page "/countries"
 @inject ICountryRepository _countryRepository
-
+@inject IJSRuntime _jsRuntime
 <div class="row">
     <div class="col-6">
         <h4 class="card-title text-primary">Product List</h4>
@@ -9,56 +9,98 @@
         <a href="/countries/create" class="btn btn-primary form-control">Add new Country</a>
     </div>
     <dic class="col-12 mt-2">
-    @if (IsLoading)
-    {
-                <div class="text-center">
-                <img src="/images/loading.gif">
-                    </div>
-    } else {
-        if (Countries.Any())
+     <_DeleteConfirmModal DeleteName="@DeleteCountryName" IsParentComponentProssesing="IsLoading" OnDeleteConfirmed="DeleteConfirmed"></_DeleteConfirmModal>
+        @if (Countries.Any())
         {
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Country</th>
-                                <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var country in Countries)
-                        {
+                         <table class="table table-bordered">
+                        <thead>
                             <tr>
-                                <td>@country.Id</td>
-                                <td>@country.CountryName</td>
-                                <td>
-                                    <div>
-                                        <NavLink href="@($"/countries/update/{country.Id}")" class="btn btn-warning">Update</NavLink>
-                                        <button class="btn btn-danger">Delete</button>
-                                    </div>
-                                </td>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Country</th>
+                                        <th scope="col">Actions</th>
                             </tr>
-                        }
-                </tbody>
-            </table>
-        }else {
-            <p>There are no Countries in the Database!</p>
+                        </thead>
+                        <tbody>
+                    @foreach (var country in Countries)
+                    {
+                                            <tr>
+                                                <td>@country.Id</td>
+                                                <td>@country.CountryName</td>
+                                                <td>
+                                                    <div>
+                                                        <NavLink href="@($"/countries/update/{country.Id}")" class="btn btn-warning">Update</NavLink>
+                                                                    <button class="btn btn-danger" @onclick="()=> DeleteCountry(country.Id, country.CountryName)">Delete</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                    }
+                        </tbody>
+                    </table>
         }
-    }
+        else
+        {
+            if (IsLoading)
+            {
+                   <div class="text-center">
+                        <img src="/images/loading.gif">
+                            </div>
+            }
+            else
+            {
+                    <p>There are no Countries in the Database!</p>
+            }
+        }
     </dic>
 </div>
 
 @code {
     private IEnumerable<CountryDto> Countries { get; set; } = new List<CountryDto>();
     private bool IsLoading { get; set; } = true;
+    private int DeleteCountryId { get; set; }
+    private string? DeleteCountryName { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            Countries = await _countryRepository.GetAll();
-            IsLoading = false;
-            StateHasChanged();
+            await LoadCountries();
+        }
+    }
+
+    private async Task LoadCountries()
+    {
+        Countries = await _countryRepository.GetAll();
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    public async Task DeleteCountry(int id, string name)
+    {
+        DeleteCountryId = id;
+        DeleteCountryName = name;
+        await _jsRuntime.ShowConfirmModal();
+    }
+
+    public async Task DeleteConfirmed(bool deleteConfirmed)
+    {
+        IsLoading = true;
+        if (deleteConfirmed && DeleteCountryId > 0)
+        {
+            await Task.Delay(1000);
+            try
+            {
+                await _countryRepository.DeleteAsync(DeleteCountryId);
+                await LoadCountries();
+                await _jsRuntime.HideConfirmModal();
+                await _jsRuntime.ToastrSuccess($"{DeleteCountryName} was deleted");
+                
+            }
+            catch (Exception)
+            {
+                await _jsRuntime.ToastrError("Something Went Wrong");
+            }
+
+            await _jsRuntime.HideConfirmModal();
         }
     }
 }

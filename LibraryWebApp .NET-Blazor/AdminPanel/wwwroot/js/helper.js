@@ -7,3 +7,11 @@
         toastr.error(message, 'Operation fail', { timeOut: 5000 })
     }
 }
+
+function showDeleteModal() {
+    $("#deleteConfirmationModal").modal("show");
+}
+
+function hideDeleteModal() {
+    $("#deleteConfirmationModal").modal("hide");
+}
