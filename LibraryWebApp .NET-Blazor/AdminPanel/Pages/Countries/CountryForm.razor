@@ -57,12 +57,22 @@
     private async Task InsertOrUpdateCountry(){
         if (CountryId > 0)
         {
-            await _countryRepository.UpdateAsync(Country);
-            await _jsRuntime.ToastrSuccess("Country Updated");
+            try{
+                await _countryRepository.UpdateAsync(Country);
+                await _jsRuntime.ToastrSuccess("Country Updated");
+            }catch(Exception){
+                await _jsRuntime.ToastrError("Something went wrong");
+            }
+
 
         } else {
-            await _countryRepository.InsertAsync(Country);
-            await _jsRuntime.ToastrSuccess("Country Created");
+            try{
+                await _countryRepository.InsertAsync(Country);
+                await _jsRuntime.ToastrSuccess("Country Created");
+            }catch(Exception){
+                await _jsRuntime.ToastrError("Something went wrong");
+            }
+            
         }
         _navigationManager.NavigateTo("/countries");
     }
