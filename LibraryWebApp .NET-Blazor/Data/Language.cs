@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    [Index(nameof(LanuageName), IsUnique = true)]
+    [Index(nameof(LanguageName), IsUnique = true)]
     public class Language : BaseEntity
     {
-        public string LanuageName { get; set; } = null!;
+        public string LanguageName { get; set; } = null!;
     }
 }

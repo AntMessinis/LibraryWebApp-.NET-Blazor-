@@ -39,6 +39,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/AdminPanel/Pages/Languages/LanguageForm.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGFuZ3VhZ2VzXExhbmd1YWdlRm9ybS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/AdminPanel/Pages/Languages/LanguageList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGFuZ3VhZ2VzXExhbmd1YWdlTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/AdminPanel/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

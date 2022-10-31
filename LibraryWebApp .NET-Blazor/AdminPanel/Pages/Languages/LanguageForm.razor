@@ -1,0 +1,87 @@
+﻿@page "/languages/create"
+@page "/languages/update/{LanguageId:int}"
+@inject ILanguageRepository _languagerepository
+@inject IJSRuntime _jsRuntime
+@inject NavigationManager _navigationManager
+
+<div class="row my-2">
+    <h3 class="card-title text-primary mb-3 ml-3">@PageTitle Language</h3>
+    <div class="col-10">
+        @if (IsLoading)
+        {
+                    <div class="text-center">
+                            <img src="/images/loading.gif">
+                        </div>
+        }
+        else
+        {
+                    <EditForm Model="Language" OnValidSubmit="InsertOrUpdateLanguage">
+                    <DataAnnotationsValidator></DataAnnotationsValidator>
+                    <div class="form-group">
+                        <label>Language Name</label>
+                        <InputText @bind-Value="@Language.LanguageName" class="form-control"></InputText>
+                        <ValidationMessage For="()=>Language.LanguageName"></ValidationMessage>
+                    </div>
+                    <div class="form-group mt-2">
+                        <button class="btn btn-primary">@PageTitle</button>
+                        <NavLink href="/languages" class="btn btn-secondary">Back</NavLink>
+                    </div>
+                </EditForm>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int LanguageId { get; set; }
+    public bool IsLoading { get; set; } = true;
+    public LanguageDto Language { get; set; } = new LanguageDto();
+    public string PageTitle { get; set; } = "Add";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadLanguage();
+        }
+    }
+
+    private async Task LoadLanguage(){
+        if (LanguageId > 0)
+        {
+            Language = await _languagerepository.GetByIdAsync(LanguageId);
+            PageTitle = "Update";
+        }
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task InsertOrUpdateLanguage()
+    {
+        if (LanguageId > 0)
+        {
+            try
+            {
+                await _languagerepository.UpdateAsync(Language);
+                await _jsRuntime.ToastrSuccess($"{Language.LanguageName} language was updated successfully.");
+            }
+            catch(Exception ex)
+            {
+                await _jsRuntime.ToastrError(ex.Message);
+            }
+        } 
+        else
+        {
+            try
+            {
+                await _languagerepository.InsertAsync(Language);
+                await _jsRuntime.ToastrSuccess($"{Language.LanguageName} language was updated successfully.");
+            }
+            catch (Exception ex2)
+            {
+                await _jsRuntime.ToastrError(ex2.Message);
+            }
+        }
+        _navigationManager.NavigateTo("/languages");
+    }
+}

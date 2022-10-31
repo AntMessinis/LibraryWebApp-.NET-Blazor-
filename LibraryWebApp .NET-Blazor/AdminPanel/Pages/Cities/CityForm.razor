@@ -28,11 +28,11 @@
                                 <InputSelect @bind-Value="City.CountryId" class="form-select">
                                 <option value="0">Please choose a country</option>
                                 @foreach (var country in Countries)
-                    {
+                            {
                         <option value="@country.Id">@country.CountryName</option>
-                    }
+                             }
                             </InputSelect>
-                            <ValidationMessage For="()=>City.CountryId"></ValidationMessage>
+                           <ValidationMessage For="()=>City.CountryId"></ValidationMessage>
                         </div>
                     <div class="form-group mt-2">
                         <button class="btn btn-primary">@PageTitle</button>

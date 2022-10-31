@@ -59,18 +59,18 @@
         {
             try{
                 await _countryRepository.UpdateAsync(Country);
-                await _jsRuntime.ToastrSuccess("Country Updated");
-            }catch(Exception){
-                await _jsRuntime.ToastrError("Something went wrong");
+                await _jsRuntime.ToastrSuccess("Country Updated successfully");
+            }catch(Exception ex){
+                await _jsRuntime.ToastrError(ex.Message);
             }
 
 
         } else {
             try{
                 await _countryRepository.InsertAsync(Country);
-                await _jsRuntime.ToastrSuccess("Country Created");
-            }catch(Exception){
-                await _jsRuntime.ToastrError("Something went wrong");
+                await _jsRuntime.ToastrSuccess("Country Created successfully");
+            }catch(Exception ex1){
+                await _jsRuntime.ToastrError(ex1.Message);
             }
             
         }

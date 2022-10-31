@@ -53,13 +53,16 @@ namespace Business
         public async Task<LanguageDto> InsertAsync(LanguageDto dto)
         {
             var newLang = _mapper.Map<LanguageDto, Language>(dto);
-            if (newLang != null)
+            try
             {
                 var insertedLang = await _db.Languages.AddAsync(newLang);
                 await _db.SaveChangesAsync();
                 return _mapper.Map<Language, LanguageDto>(insertedLang.Entity);
+            }catch (Exception)
+            {
+                return new LanguageDto();
             }
-            return new LanguageDto();
+            
         }
 
         public async Task<LanguageDto> UpdateAsync(LanguageDto dto)
@@ -67,7 +70,7 @@ namespace Business
             var langToUpdate = await _db.Languages.FirstOrDefaultAsync(l => l.Id == dto.Id);
             if (langToUpdate != null)
             {
-                langToUpdate.LanuageName = dto.LanguageName;
+                langToUpdate.LanguageName = dto.LanguageName;
                 var updatedLang = _db.Languages.Update(langToUpdate);
                 await _db.SaveChangesAsync();
                 return _mapper.Map<Language, LanguageDto>(updatedLang.Entity);

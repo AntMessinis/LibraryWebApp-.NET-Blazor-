@@ -1,0 +1,101 @@
+﻿@page "/languages"
+@inject ILanguageRepository _languageRepository
+@inject IJSRuntime _jsRuntime
+
+<div class="row">
+    <div class="col-6">
+        <h4 class="card-title text-primary">Language List</h4>
+    </div>
+    <div class="col-4 offset-2">
+        <a href="/languages/create" class="btn btn-primary form-control">Add new Language</a>
+    </div>
+    <dic class="col-12 mt-2">
+     <_DeleteConfirmModal DeleteName="@DeleteLanguageName" IsParentComponentProssesing="IsLoading" OnDeleteConfirmed="DeleteConfirmed"></_DeleteConfirmModal>
+        @if (Languages.Any())
+        {
+                             <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Language</th>
+                                            <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    @foreach (var lang in Languages)
+                    {
+                                                    <tr>
+                                                        <td>@lang.Id</td>
+                                                                <td>@lang.LanguageName</td>
+                                                        <td>
+                                                            <div>
+                                                                <NavLink href="@($"/languages/update/{lang.Id}")" class="btn btn-warning">Update</NavLink>
+                                                                        <button class="btn btn-danger" @onclick="()=> DeleteLanguage(lang.Id, lang.LanguageName)">Delete</button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                    }
+                            </tbody>
+                        </table>
+        }
+        else
+        {
+            if (IsLoading)
+            {
+                           <div class="text-center">
+                                <img src="/images/loading.gif">
+                                    </div>
+            }
+            else
+            {
+                            <p>There are no Countries in the Database!</p>
+            }
+        }
+    </dic>
+</div>
+
+@code {
+    public IEnumerable<LanguageDto> Languages { get; set; } = new List<LanguageDto>();
+    public bool IsLoading { get; set; } = true;
+    public int DeleteLanguageId { get; set; }
+    public string DeleteLanguageName { get; set; } = null!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadLanguages();
+        }
+    }
+
+    private async Task LoadLanguages(){
+        Languages = await _languageRepository.GetAll();
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task DeleteLanguage(int id, string langName){
+        DeleteLanguageId = id;
+        DeleteLanguageName = langName;
+        await _jsRuntime.ShowConfirmModal();
+    }
+
+    private async Task DeleteConfirmed(bool isConfirmed){
+        IsLoading = true;
+        if (isConfirmed && DeleteLanguageId > 0)
+        {
+            await Task.Delay(2000);
+            try
+            {
+                await _languageRepository.DeleteAsync(DeleteLanguageId);
+                await LoadLanguages();
+                await _jsRuntime.ToastrSuccess($"{DeleteLanguageName} language was successfully deleted.");
+            }
+            catch (Exception ex)
+            {
+                await _jsRuntime.ToastrError(ex.Message);
+            }
+            await _jsRuntime.HideConfirmModal();
+        }
+    }
+}
