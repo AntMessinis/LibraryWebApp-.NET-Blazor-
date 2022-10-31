@@ -15,6 +15,8 @@ namespace DTO
         public string Lastname { get; set; } = null!;
         public string Address { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
+        [Range(1, int.MaxValue, ErrorMessage = "You must add city of residence")]
+        public int CityOfResidenceId { get; set; }
         public CityDto CityOfResidence { get; set; }
         public DateTime BirthDate { get; set; }
         public DateTime MembershipCreationDate { get; set; }

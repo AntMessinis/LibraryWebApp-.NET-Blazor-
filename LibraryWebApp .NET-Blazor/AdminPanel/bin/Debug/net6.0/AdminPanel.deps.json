@@ -15,6 +15,7 @@
           "Microsoft.EntityFrameworkCore.Design": "6.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.10",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.10",
+          "Syncfusion.Blazor.DropDowns": "20.3.0.52",
           "Syncfusion.Blazor.RichTextEditor": "20.3.0.52",
           "Syncfusion.Blazor.Themes": "20.3.0.52"
         },

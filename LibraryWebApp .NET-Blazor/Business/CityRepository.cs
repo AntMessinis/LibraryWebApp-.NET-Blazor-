@@ -35,7 +35,7 @@ namespace Business
 
         public async Task<IEnumerable<CityDto>> GetAll()
         {
-            return _mapper.Map<IEnumerable<City>, IEnumerable<CityDto>>(await _db.Cities.ToListAsync());
+            return _mapper.Map<IEnumerable<City>, IEnumerable<CityDto>>(await _db.Cities.Include(c => c.Country).ToListAsync());
         }
 
         public async Task<CityDto> GetByIdAsync(int id)
@@ -52,6 +52,7 @@ namespace Business
         {
             var newCity = _mapper.Map<CityDto, City>(dto);
             var insertedCity = await _db.Cities.AddAsync(newCity);
+            await _db.SaveChangesAsync();
             return _mapper.Map<City, CityDto>(insertedCity.Entity);
         }
 

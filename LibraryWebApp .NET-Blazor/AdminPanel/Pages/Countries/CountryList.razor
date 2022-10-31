@@ -91,7 +91,6 @@
             {
                 await _countryRepository.DeleteAsync(DeleteCountryId);
                 await LoadCountries();
-                await _jsRuntime.HideConfirmModal();
                 await _jsRuntime.ToastrSuccess($"{DeleteCountryName} was deleted");
                 
             }

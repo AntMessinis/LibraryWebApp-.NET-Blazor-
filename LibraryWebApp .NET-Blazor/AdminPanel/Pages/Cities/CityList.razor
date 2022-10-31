@@ -1,0 +1,101 @@
+﻿@page "/cities"
+@inject ICityRepository _cityRepository
+@inject IJSRuntime _jsRuntime
+<div class="row">
+    <div class="col-6">
+        <h4 class="card-title text-primary">City List</h4>
+    </div>
+    <div class="col-4 offset-2">
+        <a href="/cities/create" class="btn btn-primary form-control">Add new City</a>
+    </div>
+    <dic class="col-12 mt-2">
+             <_DeleteConfirmModal DeleteName="@($"{DeleteCityName}/{DeleteCityCountry}")" IsParentComponentProssesing="IsLoading" OnDeleteConfirmed="DeleteConfirmed"></_DeleteConfirmModal>
+        @if (Cities.Any())
+        {
+                             <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">City</th>
+                                            <th scope="col">Country</th>
+                                            <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    @foreach (var city in Cities)
+                    {
+                                                    <tr>
+                                                        <td>@city.Id</td>
+                                                        <td>@city.CityName</td>
+                                                        <td>@city.Country.CountryName</td>
+                                                        <td>
+                                                            <div>
+                                                                <NavLink href="@($"/cities/update/{city.Id}")" class="btn btn-warning">Update</NavLink>
+                                                                            <button class="btn btn-danger" @onclick="()=> DeleteCity(city.Id, city.CityName, city.Country.CountryName)">Delete</button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                    }
+                            </tbody>
+                        </table>
+        }
+        else
+        {
+            if (IsLoading)
+            {
+                           <div class="text-center">
+                                <img src="/images/loading.gif">
+                                    </div>
+            }
+            else
+            {
+                            <p>There are no Cities in the Database!</p>
+            }
+        }
+    </dic>
+</div>
+@code {
+    private bool IsLoading { get; set; } = true;
+    private IEnumerable<CityDto> Cities { get; set; } = new List<CityDto>();
+
+    public int DeleteCityId { get; set; }
+    public string DeleteCityName { get; set; } = null!;
+    public string DeleteCityCountry { get; set; } = null!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadCities();
+        }
+    }
+
+    private async Task LoadCities(){
+        Cities = await _cityRepository.GetAll();
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task DeleteCity(int id, string cityName, string countryName){
+        DeleteCityId = id;
+        DeleteCityName = cityName;
+        DeleteCityCountry = countryName;
+        await _jsRuntime.ShowConfirmModal();
+    }
+
+    public async Task DeleteConfirmed(bool isConfirmed){
+        IsLoading = true;
+        if (isConfirmed && DeleteCityId > 0)
+        {
+            await Task.Delay(2000);
+            try{
+                await _cityRepository.DeleteAsync(DeleteCityId);
+                await LoadCities();
+                await _jsRuntime.ToastrSuccess($"{DeleteCityName}/{DeleteCityCountry} was deleted successfully");
+            } catch (Exception){
+                await _jsRuntime.ToastrError("Something went wrong");
+            }
+            await _jsRuntime.HideConfirmModal();
+        }
+    }
+}

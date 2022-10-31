@@ -1,0 +1,96 @@
+﻿@page "/cities/create"
+@page "/cities/update/{CityId:int}"
+@inject ICityRepository _cityRepository
+@inject ICountryRepository _countryRepository
+@inject IJSRuntime _jsRuntime
+@inject NavigationManager _navigationManager
+
+<div class="row my-2">
+    <h3 class="card-title text-primary mb-3 ml-3">@PageTitle Country</h3>
+    <div class="col-10">
+        @if (IsLoading)
+        {
+                    <div class="text-center">
+                            <img src="/images/loading.gif">
+                        </div>
+        }
+        else
+        {
+                    <EditForm Model="City" OnValidSubmit="InsertOrUpdateCity">
+                    <DataAnnotationsValidator></DataAnnotationsValidator>
+                    <div class="form-group">
+                        <label>City Name</label>
+                        <InputText @bind-Value="@City.CityName" class="form-control"></InputText>
+                        <ValidationMessage For="()=>City.CityName"></ValidationMessage>
+                    </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                                <InputSelect @bind-Value="City.CountryId" class="form-select">
+                                <option value="0">Please choose a country</option>
+                                @foreach (var country in Countries)
+                    {
+                        <option value="@country.Id">@country.CountryName</option>
+                    }
+                            </InputSelect>
+                            <ValidationMessage For="()=>City.CountryId"></ValidationMessage>
+                        </div>
+                    <div class="form-group mt-2">
+                        <button class="btn btn-primary">@PageTitle</button>
+                        <NavLink href="/cities" class="btn btn-secondary">Back</NavLink>
+                    </div>
+                </EditForm>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int CityId { get; set; }
+    public bool IsLoading { get; set; } = true;
+    public CityDto City { get; set; } = new CityDto();
+    public string? PageTitle { get; set; } = "Add";
+    public IEnumerable<CountryDto> Countries { get; set; } = new List<CountryDto>();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadCity();
+        }
+    }
+
+    private async Task LoadCity(){
+        Countries = await _countryRepository.GetAll();
+        if (CityId > 0) {
+            City = await _cityRepository.GetByIdAsync(CityId);
+            PageTitle = "Update";
+        }
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task InsertOrUpdateCity(){
+        if (CityId > 0)
+        {
+            try
+            {
+                await _cityRepository.UpdateAsync(City);
+                await _jsRuntime.ToastrSuccess($"{City.CityName}/{City.Country.CountryName} was updated successfully");
+            }
+            catch (Exception ex1){
+                await _jsRuntime.ToastrError(ex1.Message);
+            }
+        }else {
+            try
+            {
+                await _cityRepository.InsertAsync(City);
+                await _jsRuntime.ToastrSuccess($"{City.CityName} was added successfully");
+            }
+            catch (Exception ex2)
+            {
+                await _jsRuntime.ToastrError(ex2.Message);
+            }
+        }
+        _navigationManager.NavigateTo("/cities");
+    }
+}
