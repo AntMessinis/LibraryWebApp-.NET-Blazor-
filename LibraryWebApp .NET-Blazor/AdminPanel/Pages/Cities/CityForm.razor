@@ -29,7 +29,7 @@
                                 <option value="0">Please choose a country</option>
                                 @foreach (var country in Countries)
                             {
-                        <option value="@country.Id">@country.CountryName</option>
+                                <option value="@country.Id">@country.CountryName</option>
                              }
                             </InputSelect>
                            <ValidationMessage For="()=>City.CountryId"></ValidationMessage>

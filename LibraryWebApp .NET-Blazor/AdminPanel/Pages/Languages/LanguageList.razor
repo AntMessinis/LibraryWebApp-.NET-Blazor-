@@ -94,6 +94,7 @@
             catch (Exception ex)
             {
                 await _jsRuntime.ToastrError(ex.Message);
+                IsLoading = false;
             }
             await _jsRuntime.HideConfirmModal();
         }

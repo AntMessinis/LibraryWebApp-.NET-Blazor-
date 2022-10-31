@@ -1,0 +1,100 @@
+﻿@page "/categories/create"
+@page "/categories/update/{CategoryId:int}"
+@inject IBaseCategoryRepository _baseCategoryRepository
+@inject ICategoryRepository _categoryRepository
+@inject IJSRuntime _jsRuntime
+@inject NavigationManager _navigationManager
+<div class="row my-2">
+    <h3 class="card-title text-primary mb-3 ml-3">@PageTitle Category</h3>
+    <div class="col-10">
+        @if (IsLoading)
+        {
+                        <div class="text-center">
+                                <img src="/images/loading.gif">
+                            </div>
+        }
+        else
+        {
+                            <EditForm Model="Category" OnValidSubmit="InsertOrUpdateCategory">
+                        <DataAnnotationsValidator></DataAnnotationsValidator>
+                        <div class="form-group">
+                                <label>Category</label>
+                                <InputText @bind-Value="@Category.CategoryName" class="form-control"></InputText>
+                                <ValidationMessage For="()=>Category.CategoryName"></ValidationMessage>
+                        </div>
+                            <div class="form-group">
+                                    <label>Basic Category</label>
+                                        <InputSelect @bind-Value="Category.BasicCategoryId" class="form-select">
+                                        <option value="0">Please select a basic category...</option>
+                                        @foreach (var basicCat in BaseCategories)
+                                        {
+                                            <option value="@basicCat.Id">@basicCat.BaseCategoryName</option>
+                                        }
+                                    </InputSelect>
+                                    <ValidationMessage For="()=>Category.BasicCategoryId"></ValidationMessage>
+                            </div>
+                        <div class="form-group mt-2">
+                            <button class="btn btn-primary">@PageTitle</button>
+                            <NavLink href="/categories" class="btn btn-secondary">Back</NavLink>
+                        </div>
+                    </EditForm>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int CategoryId { get; set; }
+    public bool IsLoading { get; set; } = true;
+    public string PageTitle { get; set; } = "Add";
+    public IEnumerable<BaseCategoryDto> BaseCategories = new List<BaseCategoryDto>();
+    public CategoryDto Category { get; set; } = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadCategory();
+        }
+    }
+
+    private async Task LoadCategory(){
+        BaseCategories = await _baseCategoryRepository.GetAll();
+        if (CategoryId > 0)
+        {
+            Category = await _categoryRepository.GetByIdAsync(CategoryId);
+            PageTitle = "Update";
+        }
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task InsertOrUpdateCategory(){
+        if (CategoryId > 0)
+        {
+            try
+            {
+                await _categoryRepository.UpdateAsync(Category);
+                await _jsRuntime.ToastrSuccess($"Category {Category.CategoryName} was updated successfully.");
+            }
+            catch(Exception ex)
+            {
+                await _jsRuntime.ToastrError(ex.Message);
+            }
+        }
+        else
+        {
+            try
+            {
+                await _categoryRepository.InsertAsync(Category);
+                await _jsRuntime.ToastrSuccess($"Category {Category.CategoryName} was added successfully.");
+            }
+            catch (Exception ex)
+            {
+                await _jsRuntime.ToastrError(ex.Message);
+            }
+        }
+        _navigationManager.NavigateTo("/categories");
+    }
+
+}

@@ -29,8 +29,15 @@ namespace Business
             var authorToDelete = await _db.Authors.FirstOrDefaultAsync(a => a.Id == id);
             if (authorToDelete != null)
             {
-                _db.Authors.Remove(authorToDelete);
-                return await _db.SaveChangesAsync();
+                try
+                {
+                    _db.Authors.Remove(authorToDelete);
+                     return await _db.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
             }
             return 0;
         }
@@ -53,9 +60,17 @@ namespace Business
         public async Task<AuthorDto> InsertAsync(AuthorDto dto)
         {
             var newAuthor = _mapper.Map<AuthorDto, Author>(dto);
-            var insertedAuthor = await _db.Authors.AddAsync(newAuthor);
-            await _db.SaveChangesAsync();
-            return _mapper.Map<Author, AuthorDto>(insertedAuthor.Entity);
+            try
+            {
+                var insertedAuthor = await _db.Authors.AddAsync(newAuthor);
+                await _db.SaveChangesAsync();
+                return _mapper.Map<Author, AuthorDto>(insertedAuthor.Entity);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
         public async Task<AuthorDto> UpdateAsync(AuthorDto dto)
@@ -63,16 +78,23 @@ namespace Business
             var authorToUpdate = await _db.Authors.Include(a => a.CountryOfOrigin).FirstOrDefaultAsync(a => a.Id == dto.Id);
             if (authorToUpdate != null)
             {
-                authorToUpdate.Firstname = dto.Firstname;
-                authorToUpdate.Lastname = dto.Lastname;
-                authorToUpdate.AuthorImageUrl = dto.ImageUrl;
-                authorToUpdate.MiniBio = dto.MiniBio;
-                authorToUpdate.Categories = _mapper.Map<IEnumerable<CategoryDto>, IEnumerable<Category>>(dto.Categories);
-                authorToUpdate.BooksAuthored = _mapper.Map<IEnumerable<BookDto>, IEnumerable<Book>>(dto.BooksAuthored);
+                try
+                {
+                    authorToUpdate.Firstname = dto.Firstname;
+                    authorToUpdate.Lastname = dto.Lastname;
+                    authorToUpdate.AuthorImageUrl = dto.ImageUrl;
+                    authorToUpdate.MiniBio = dto.MiniBio;
+                    authorToUpdate.Categories = _mapper.Map<IEnumerable<CategoryDto>, IEnumerable<Category>>(dto.Categories);
+                    authorToUpdate.BooksAuthored = _mapper.Map<IEnumerable<BookDto>, IEnumerable<Book>>(dto.BooksAuthored);
 
-                var updatedAuthor = _db.Authors.Update(authorToUpdate);
-                await _db.SaveChangesAsync();
-                return _mapper.Map<Author, AuthorDto>(updatedAuthor.Entity);
+                    var updatedAuthor = _db.Authors.Update(authorToUpdate);
+                    await _db.SaveChangesAsync();
+                    return _mapper.Map<Author, AuthorDto>(updatedAuthor.Entity);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
             return new AuthorDto();
         }

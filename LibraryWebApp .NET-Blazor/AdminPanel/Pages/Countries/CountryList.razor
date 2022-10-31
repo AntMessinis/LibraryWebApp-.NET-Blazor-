@@ -3,7 +3,7 @@
 @inject IJSRuntime _jsRuntime
 <div class="row">
     <div class="col-6">
-        <h4 class="card-title text-primary">Product List</h4>
+        <h4 class="card-title text-primary">Country List</h4>
     </div>
     <div class="col-4 offset-2">
         <a href="/countries/create" class="btn btn-primary form-control">Add new Country</a>
@@ -92,11 +92,12 @@
                 await _countryRepository.DeleteAsync(DeleteCountryId);
                 await LoadCountries();
                 await _jsRuntime.ToastrSuccess($"{DeleteCountryName} was deleted");
-                
+
             }
             catch (Exception)
             {
                 await _jsRuntime.ToastrError("Something Went Wrong");
+                IsLoading = false;
             }
 
             await _jsRuntime.HideConfirmModal();
