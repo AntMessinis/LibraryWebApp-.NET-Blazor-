@@ -15,7 +15,7 @@ namespace Data
         public string CategoryName { get; set; } = null!;
         public int BaseCategoryId { get; set; }
         [ForeignKey("BaseCategoryId")]
-        public BaseCategory BasicCategory { get; set; }
+        public BaseCategory BasicCategory { get; set; } = null!;
         public IEnumerable<Author> Authors { get; set; }
         public IEnumerable<Book> Books { get; set; }
     }

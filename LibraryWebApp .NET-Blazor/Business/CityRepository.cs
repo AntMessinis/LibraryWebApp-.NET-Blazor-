@@ -35,7 +35,7 @@ namespace Business
 
         public async Task<IEnumerable<CityDto>> GetAll()
         {
-            return _mapper.Map<IEnumerable<City>, IEnumerable<CityDto>>(await _db.Cities.Include(c => c.Country).ToListAsync());
+            return _mapper.Map<IEnumerable<City>, IEnumerable<CityDto>>(await _db.Cities.Include(c => c.Country).AsNoTracking().ToListAsync());
         }
 
         public async Task<CityDto> GetByIdAsync(int id)

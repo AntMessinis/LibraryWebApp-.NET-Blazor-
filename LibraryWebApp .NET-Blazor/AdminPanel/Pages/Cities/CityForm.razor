@@ -26,7 +26,7 @@
                         <div class="form-group">
                             <label>Country</label>
                                 <InputSelect @bind-Value="City.CountryId" class="form-select">
-                                <option value="0">Please choose a country</option>
+                                <option value="0">Please choose a country...</option>
                                 @foreach (var country in Countries)
                             {
                                 <option value="@country.Id">@country.CountryName</option>
@@ -47,7 +47,7 @@
     [Parameter]
     public int CityId { get; set; }
     public bool IsLoading { get; set; } = true;
-    public CityDto City { get; set; } = new CityDto();
+    public CityDto City { get; set; } = new();
     public string? PageTitle { get; set; } = "Add";
     public IEnumerable<CountryDto> Countries { get; set; } = new List<CountryDto>();
 

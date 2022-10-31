@@ -52,6 +52,11 @@ namespace Business
         public async Task<CategoryDto> InsertAsync(CategoryDto dto)
         {
             var catToInsert = _mapper.Map<CategoryDto, Category>(dto);
+            var existingBasicCategory = await _db.BasicCategories.SingleOrDefaultAsync(c => c.Id == dto.BasicCategoryId);
+            if (existingBasicCategory != null)
+            {
+                catToInsert.BasicCategory = existingBasicCategory;
+            }
             var insertedCat = await _db.Categories.AddAsync(catToInsert);
             await _db.SaveChangesAsync();
             return _mapper.Map<Category, CategoryDto>(insertedCat.Entity);
@@ -63,7 +68,7 @@ namespace Business
             if (catToUpdate != null)
             {
                 catToUpdate.CategoryName = dto.CategoryName;
-                catToUpdate.BasicCategory = _mapper.Map<BaseCategoryDto, BaseCategory>(dto.BasicCategory);
+                //catToUpdate.BasicCategory = _mapper.Map<BaseCategoryDto, BaseCategory>(dto.BasicCategory);
                 var updatedCat = _db.Categories.Update(catToUpdate);
                 await _db.SaveChangesAsync();
 

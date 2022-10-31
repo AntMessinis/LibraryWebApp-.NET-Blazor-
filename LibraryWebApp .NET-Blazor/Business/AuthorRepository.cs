@@ -29,15 +29,8 @@ namespace Business
             var authorToDelete = await _db.Authors.FirstOrDefaultAsync(a => a.Id == id);
             if (authorToDelete != null)
             {
-                try
-                {
-                    _db.Authors.Remove(authorToDelete);
-                     return await _db.SaveChangesAsync();
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
+                _db.Authors.Remove(authorToDelete);
+                return await _db.SaveChangesAsync();
             }
             return 0;
         }

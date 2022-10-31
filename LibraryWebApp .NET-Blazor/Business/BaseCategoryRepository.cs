@@ -36,7 +36,7 @@ namespace Business
 
         public async Task<IEnumerable<BaseCategoryDto>> GetAll()
         {
-            return _mapper.Map<IEnumerable<BaseCategory>, IEnumerable<BaseCategoryDto>>(await _db.BasicCategories.ToListAsync());
+            return _mapper.Map<IEnumerable<BaseCategory>, IEnumerable<BaseCategoryDto>>(await _db.BasicCategories.AsNoTrackingWithIdentityResolution().ToListAsync());
         }
 
         public async Task<BaseCategoryDto> GetByIdAsync(int id)

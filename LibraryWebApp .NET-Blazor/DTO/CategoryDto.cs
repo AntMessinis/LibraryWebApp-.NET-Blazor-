@@ -9,9 +9,10 @@ namespace DTO
 {
     public class CategoryDto : BaseDto
     {
+        [Required(ErrorMessage = "You must add Category's name")]
         public string CategoryName { get; set; } = null!;
         [Range(1, int.MaxValue, ErrorMessage = "You must add Basic Category")]
         public int BasicCategoryId { get; set; }
-        public BaseCategoryDto BasicCategory { get; set; } = new();
+        public BaseCategoryDto BasicCategory { get; set; } = null!;
     }
 }
