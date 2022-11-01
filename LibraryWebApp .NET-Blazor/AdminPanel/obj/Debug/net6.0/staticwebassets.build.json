@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZFpALIixwmM0CRKZlbGUoMs2zQc7/JLE3F2F9q1YMnQ=",
+  "Hash": "4KGxHoRKct/P2ChrzNcTeeidAYhCivbqsDxjJW8CojM=",
   "Source": "AdminPanel",
   "BasePath": "_content/AdminPanel",
   "Mode": "Default",
@@ -1239,6 +1239,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\Antonis\\Coding_Factory\\C#\\LibraryWebApp-.NET-Blazor-\\LibraryWebApp .NET-Blazor\\AdminPanel\\wwwroot\\images\\authors\\defaultAuthor.jpg",
+      "SourceId": "AdminPanel",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Antonis\\Coding_Factory\\C#\\LibraryWebApp-.NET-Blazor-\\LibraryWebApp .NET-Blazor\\AdminPanel\\wwwroot\\",
+      "BasePath": "_content/AdminPanel",
+      "RelativePath": "images/authors/defaultAuthor.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\authors\\defaultAuthor.jpg"
     },
     {
       "Identity": "D:\\Antonis\\Coding_Factory\\C#\\LibraryWebApp-.NET-Blazor-\\LibraryWebApp .NET-Blazor\\AdminPanel\\wwwroot\\images\\loading.gif",

@@ -19,6 +19,14 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/AdminPanel/Pages/Authors/AuthorForm.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aG9yc1xBdXRob3JGb3JtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/AdminPanel/Pages/Authors/AuthorList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aG9yc1xBdXRob3JMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/AdminPanel/Pages/Categories/CategoryForm.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2F0ZWdvcmllc1xDYXRlZ29yeUZvcm0ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 

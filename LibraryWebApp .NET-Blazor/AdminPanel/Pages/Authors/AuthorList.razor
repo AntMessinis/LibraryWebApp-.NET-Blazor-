@@ -1,0 +1,133 @@
+﻿@page "/authors"
+@inject IAuthorRepository _authorRepository
+@inject IJSRuntime _jsRuntime
+
+<div class="row">
+    <div class="col-6">
+        <h4 class="card-title text-primary">Author List</h4>
+    </div>
+    <div class="col-4 offset-2">
+        <a href="/authors/create" class="btn btn-primary">Add new Author</a>
+    </div>
+    <div class="col-12 mt-2">
+        <_DeleteConfirmModal DeleteName="@DeleteAuthorFullName" IsParentComponentProssesing="IsLoading" OnDeleteConfirmed="DeleteConfirmed"></_DeleteConfirmModal>
+        @if (Authors.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Portrait</th>
+                        <th scope="col">Firstname</th>
+                        <th scope="col">Lastname</th>
+                        <th scope="col">Country of Origin</th>
+                        <th scope="col">Mini Bio</th>
+                        <th scope="col">Categories</th>
+                        <th scope="col">Books Authored</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var author in Authors)
+                    {
+                        <tr>
+                            <td>
+                                @author.Id
+                            </td>
+                            <td>
+                                <img src="@author.ImageUrl"/>
+                            </td>
+                            <td>@author.Lastname</td>
+                            <td>@author.Firstname</td>
+                            <td>@author.CountryOfOrigin</td>
+                            <td>@author.MiniBio</td>
+                            <td>
+                                <ul>
+                                @foreach (var category in author.Categories)
+                                {
+                                    <li>@category.CategoryName</li>
+                                }
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                @foreach (var book in author.BooksAuthored)
+                                {
+                                    <li>@book.Title</li>
+                                }
+                                </ul>
+                            </td>
+                            <td>
+                                <div>
+                                    <NavLink href=@($"/authors/update/{author.Id}") class="btn btn-warning">Update</NavLink>
+                                    <button class="btn btn-danger" @onclick="() => DeleteAuthor(author.Id, author.Firstname + author.Lastname)">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            if (IsLoading)
+            {
+                <div class="text-center">
+                    <img src="/images/loading.gif">
+                </div>
+            }
+            else
+            {
+                <p>There no authors in the database!</p>
+            }
+        }
+    </div>
+</div>
+
+@code {
+    public IEnumerable<AuthorDto> Authors {get; set;} = new List<AuthorDto>();
+    public bool IsLoading { get; set; } = true;
+    public int DeleteAuthorId { get; set; }
+    public string DeleteAuthorFullName { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadAuthors();
+        }
+    }
+
+    private async Task LoadAuthors()
+    {
+        Authors = await _authorRepository.GetAll();
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task DeleteAuthor(int authorId, string authorFullName)
+    { 
+        DeleteAuthorId = authorId;
+        DeleteAuthorFullName = authorFullName;
+        await _jsRuntime.ShowConfirmModal();
+    }
+
+    private async Task DeleteConfirmed(bool isConfirmed)
+    {
+        IsLoading = true;
+        if (isConfirmed && DeleteAuthorId > 0)
+        {
+            try
+            {
+                _authorRepository.DeleteAsync(DeleteAuthorId);
+                LoadAuthors();
+                _jsRuntime.ToastrSuccess($"{DeleteAuthorFullName} was delete successfully");
+            }
+            catch (Exception ex)
+            {
+                _jsRuntime.ToastrError(ex.Message);
+                IsLoading = false;
+            }
+        }
+    }
+}

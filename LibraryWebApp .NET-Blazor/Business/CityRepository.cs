@@ -35,7 +35,7 @@ namespace Business
 
         public async Task<IEnumerable<CityDto>> GetAll()
         {
-            return _mapper.Map<IEnumerable<City>, IEnumerable<CityDto>>(await _db.Cities.Include(c => c.Country).AsNoTracking().ToListAsync());
+            return _mapper.Map<IEnumerable<City>, IEnumerable<CityDto>>(await _db.Cities.Include(c => c.Country).ToListAsync());
         }
 
         public async Task<CityDto> GetByIdAsync(int id)
@@ -59,10 +59,11 @@ namespace Business
         public async Task<CityDto> UpdateAsync(CityDto dto)
         {
             var cityToUpdate = await _db.Cities.Include(c => c.Country).FirstOrDefaultAsync(c => c.Id == dto.Id);
+            var country = await _db.Countries.FirstOrDefaultAsync(c => c.Id == dto.CountryId);
             if (cityToUpdate != null)
             {
                 cityToUpdate.CityName = dto.CityName;
-                cityToUpdate.Country = _mapper.Map<CountryDto, Country>(dto.Country);
+                cityToUpdate.Country = country!;
                 cityToUpdate.CountryId = cityToUpdate.Country.Id;
                 var updatedCity = _db.Cities.Update(cityToUpdate);
                 await _db.SaveChangesAsync();

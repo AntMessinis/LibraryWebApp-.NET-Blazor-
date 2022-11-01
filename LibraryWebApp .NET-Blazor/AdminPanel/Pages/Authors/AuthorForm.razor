@@ -1,0 +1,158 @@
+﻿@page "/author/create"
+@page "/author/update/{AuthorId:int}"
+
+@inject IAuthorRepository _authorRepository
+@inject ICountryRepository _countryRepository
+@inject IFileUpload _fileUpload
+@inject IJSRuntime _jsRuntime
+@inject NavigationManager _navigationManager
+
+<div class="row my-2">
+    <h3 class="card-title text-primary">@PageTitle Author</h3>
+    <div class="col-md-10">
+        @if (IsLoading)
+        {
+            <div class="text-center">
+                <img src="/images/loading.gif" />
+            </div>
+        }
+        else
+        {
+            <EditForm Model="Author">
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+                <div class="form-group col-6">
+                    <label for="authorFirstname">Firstname</label>
+                    <InputText @bind-Value="@Author.Firstname" class="form-control" id="authorFirstname" placeholder="Firstname"></InputText>
+                    <ValidationMessage For="() => Author.Firstname"></ValidationMessage>
+                </div>
+                <div class="form-group col-6">
+                    <label for="authorLastname">Lastname</label>
+                    <InputText @bind-Value="@Author.Lastname" class="form-control" id="authorLastname" placeholder="Lastname"></InputText>
+                    <ValidationMessage For="() => Author.Lastname"></ValidationMessage>
+                </div>
+                <div class="form-group col-6">
+                    <label for="authorCountryOfOrigin">Country of Origin</label>
+                    <InputSelect @bind-Value="@Author.CountryOfOriginId" class="form-select" id="authorCountryOfOrigin">
+                        <option value="0" disabled selected>Please select a country...</option>
+                        @foreach (var country in Countries)
+                        {
+                            <option value="@country.Id">@country.CountryName</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="() => Author.CountryOfOriginId"></ValidationMessage>
+                </div>
+                <div class="form-group col-6">
+                    <label for="authorImage">Upload Author's Portrait</label>
+                    <InputFile id="authorImage"></InputFile>
+                    <ValidationMessage For="() => Author.ImageUrl"></ValidationMessage>
+                </div>
+                <div class="form-group col-10">
+                    <label for="authorBio">Mini Bio</label>
+                    <SfRichTextEditor @bind-Value="Author.MiniBio" id="authorBio"></SfRichTextEditor>
+                    <ValidationMessage For="() => Author.MiniBio"></ValidationMessage>
+                </div>
+                <div class="mt-2 form-group">
+                    <button class="btn btn-primary">@PageTitle</button>
+                    <NavLink href="/authors" class="btn btn-secondary">Back</NavLink>
+                </div>
+            </EditForm>
+        }
+    </div>
+    <div class="col-md-2 mt-1">
+        <img src="@Author.ImageUrl" class="w-100"/>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int AuthorId { get; set; }
+    public AuthorDto Author { get; set; } = new()
+    {
+        ImageUrl = "/images/authors/defaultAuthor.jpg"
+    };
+    public IEnumerable<CountryDto> Countries { get; set; } = new List<CountryDto>();
+    public bool IsLoading { get; set; } = true;
+    public string PageTitle { get; set; } = "Add";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadAuthor();
+        }
+    }
+
+    private async Task LoadAuthor()
+    {
+        if (AuthorId > 0)
+        {
+            PageTitle = "Update";
+            Author = await _authorRepository.GetByIdAsync(AuthorId);
+        }
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task HandleFileUpload(InputFileChangeEventArgs files)
+    {
+        IsLoading = true;
+        try
+        {
+            if (files.GetMultipleFiles().Count > 0)
+            {
+                foreach (var file in files.GetMultipleFiles())
+                {
+                    FileInfo fileInfo = new(file.Name);
+                    if (fileInfo.Extension.ToLower() == ".jpg" ||
+                        fileInfo.Extension.ToLower() == ".png" ||
+                        fileInfo.Extension.ToLower() == ".jpeg")
+                    {
+                        Author.ImageUrl = await _fileUpload.UploadFile(file);
+                        await _jsRuntime.ToastrSuccess("Image Uploaded Successfully");
+                    }
+                    else
+                    {
+                        await _jsRuntime.ToastrError("Please use only .jpg, .pgn or .jpeg images");
+                        return;
+                    }
+                }
+                IsLoading = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            await _jsRuntime.ToastrError(ex.Message);
+            IsLoading = false;
+        }
+    }
+
+    private async Task UpdateOrInsertAuthor()
+    {
+        if (AuthorId > 0)
+        {
+            try
+            {
+                await _authorRepository.UpdateAsync(Author);
+                await _jsRuntime.ToastrSuccess($"{Author.Firstname} {Author.Lastname} was updated successfully");
+            }
+            catch (Exception ex)
+            {
+                await _jsRuntime.ToastrError(ex.Message);
+            }
+
+        }
+        else
+        {
+            try
+            {
+                await _authorRepository.InsertAsync(Author);
+                await _jsRuntime.ToastrSuccess($"{Author.Firstname} {Author.Lastname} was added to authors successfully");
+            }
+            catch (Exception ex)
+            {
+                await _jsRuntime.ToastrError(ex.Message);
+            }
+        }
+        _navigationManager.NavigateTo("/authors");
+    }
+}

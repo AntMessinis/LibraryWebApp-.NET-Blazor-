@@ -36,12 +36,12 @@ namespace Business
 
         public async Task<IEnumerable<CategoryDto>> GetAll()
         {
-            return _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDto>>(await _db.Categories.ToListAsync());
+            return _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDto>>(await _db.Categories.Include(c => c.BasicCategory).ToListAsync());
         }
 
         public async Task<CategoryDto> GetByIdAsync(int id)
         {
-            var category = await _db.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            var category = await _db.Categories.Include(c => c.BasicCategory).FirstOrDefaultAsync(c => c.Id == id);
             if (category != null)
             {
                 return _mapper.Map<Category, CategoryDto>(category);
@@ -67,8 +67,9 @@ namespace Business
             var catToUpdate = await _db.Categories.FirstOrDefaultAsync(c => c.Id == dto.Id);
             if (catToUpdate != null)
             {
+                var basicCategory = await _db.BasicCategories.SingleOrDefaultAsync(c => c.Id == dto.BasicCategoryId);
                 catToUpdate.CategoryName = dto.CategoryName;
-                //catToUpdate.BasicCategory = _mapper.Map<BaseCategoryDto, BaseCategory>(dto.BasicCategory);
+                catToUpdate.BasicCategory = basicCategory!;
                 var updatedCat = _db.Categories.Update(catToUpdate);
                 await _db.SaveChangesAsync();
 

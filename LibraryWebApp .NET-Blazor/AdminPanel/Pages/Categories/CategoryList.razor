@@ -14,101 +14,100 @@
         <_DeleteConfirmModal DeleteName="@DeleteCategoryName" IsParentComponentProssesing="IsLoading" OnDeleteConfirmed="DeleteConfirmed"></_DeleteConfirmModal>
         @if (Categories.Any())
         {
-                        <div class="col-12 mt-2">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                           <th scope="col">Id</th>
-                                           <th scope="col">Category</th>
-                                           <th scope="col">Basic Category</th>
-                                           <th scope="col">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                        @foreach (var category in Categories)
-                        {
-                                                                    <tr>
-                                                                                <td>@category.Id</td>
-                                                                                <td>@category.CategoryName</td>
-                                                                                <td>@category.BasicCategory.BaseCategoryName</td>
-                                                                        <td>
-                                                                            <div>
-                                                                                        <NavLink href="@($"/categories/update/{category.Id}")" class="btn btn-warning">Update</NavLink>
-                                                                                                            <button class="btn btn-danger" @onclick="()=> DeleteCategory(category.Id, category.CategoryName, false)">Delete</button>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                        }
-                                    </tbody>
-                                </table>
-                        </div>
 
+             <table class="table table-bordered">
+                 <thead>
+                      <tr>
+                          <th scope="col">Id</th>
+                          <th scope="col">Category</th>
+                          <th scope="col">Basic Category</th>
+                          <th scope="col">Actions</th>
+                      </tr>
+                 </thead>
+                 <tbody>
+                    @foreach (var category in Categories)
+                    {
+                         <tr>
+                             <td>@category.Id</td>
+                             <td>@category.CategoryName</td>
+                             <td>@category.BasicCategory.BaseCategoryName</td>
+                             <td>
+                                 <div>
+                                      <NavLink href="@($"/categories/update/{category.Id}")" class="btn btn-warning">Update</NavLink>
+                                      <button class="btn btn-danger" @onclick="()=> DeleteCategory(category.Id, category.CategoryName, false)">Delete</button>
+                                 </div>
+                             </td>
+                         </tr>
+                    }
+                  </tbody>
+             </table>
         }
         else
         {
             if (IsLoading)
             {
-                        <div class="col-12 mt-2">
-                            <div class="text-center">
-                            <img src="/images/loading.gif">
-                            </div>
-                        </div>
+                <div class="col-12 mt-2">
+                     <div class="text-center">
+                          <img src="/images/loading.gif">
+                     </div>
+                </div>
             }
             else
             {
-                            <div class="col-12 mt-2">
-                            <p>There are no Categories in the Database!</p></div>
+                <div class="col-12 mt-2">
+                <p>There are no Categories in the Database!</p></div>
             }
         }
 
     </div>
 </div>
 
-    @code {
-        public bool IsLoading { get; set; } = true;
-        public IEnumerable<CategoryDto> Categories { get; set; } = new List<CategoryDto>();
-        public int DeleteCategoryId { get; set; }
-        public string DeleteCategoryName { get; set; } = null!;
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+@code {
+    public bool IsLoading { get; set; } = true;
+    public IEnumerable<CategoryDto> Categories { get; set; } = new List<CategoryDto>();
+    public int DeleteCategoryId { get; set; }
+    public string DeleteCategoryName { get; set; } = null!;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
         {
-            if (firstRender)
+            await LoadCategories();
+        }
+    }
+
+    private async Task LoadCategories()
+    {
+        Categories = await _categoryRepository.GetAll();
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task DeleteCategory(int id, string categoryName, bool isBasicCategory)
+    {
+        DeleteCategoryId = id;
+        DeleteCategoryName = categoryName;
+
+        await _jsRuntime.ShowConfirmModal();
+    }
+    private async Task DeleteConfirmed(bool isConfirmed)
+    {
+        IsLoading = true;
+        if (isConfirmed && DeleteCategoryId > 0)
+        {
+            await Task.Delay(2000);
+            try
             {
+                await _categoryRepository.DeleteAsync(DeleteCategoryId);
                 await LoadCategories();
+                await _jsRuntime.ToastrSuccess($"{DeleteCategoryName} was deleted successfully from categories");
             }
-        }
-
-        private async Task LoadCategories()
-        {
-            Categories = await _categoryRepository.GetAll();
-            IsLoading = false;
-            StateHasChanged();
-        }
-
-        private async Task DeleteCategory(int id, string categoryName, bool isBasicCategory){
-            DeleteCategoryId = id;
-            DeleteCategoryName = categoryName;
-            
-            await _jsRuntime.ShowConfirmModal();
-        }
-        private async Task DeleteConfirmed(bool isConfirmed)
-        {
-            IsLoading = true;
-            if (isConfirmed && DeleteCategoryId > 0)
+            catch (Exception ex)
             {
-                await Task.Delay(2000);
-                    try
-                    {
-                        await _categoryRepository.DeleteAsync(DeleteCategoryId);
-                        await LoadCategories();
-                        await _jsRuntime.ToastrSuccess($"{DeleteCategoryName} was deleted successfully from categories");
-                    }
-                    catch (Exception ex)
-                    {
-                        await _jsRuntime.ToastrError(ex.Message);
-                        IsLoading = false;
-                    }
-                
-                await _jsRuntime.HideConfirmModal();
+                await _jsRuntime.ToastrError(ex.Message);
+                IsLoading = false;
             }
+
+            await _jsRuntime.HideConfirmModal();
         }
+    }
 }
