@@ -20,19 +20,19 @@
         {
             <EditForm Model="Author">
                 <DataAnnotationsValidator></DataAnnotationsValidator>
-                <div class="form-group col-6">
+                <div class="form-group">
                     <label for="authorFirstname">Firstname</label>
-                    <InputText @bind-Value="@Author.Firstname" class="form-control" id="authorFirstname" placeholder="Firstname"></InputText>
+                    <InputText @bind-Value="@Author.Firstname" class="form-control" placeholder="Firstname"></InputText>
                     <ValidationMessage For="() => Author.Firstname"></ValidationMessage>
                 </div>
-                <div class="form-group col-6">
+                <div class="form-group">
                     <label for="authorLastname">Lastname</label>
-                    <InputText @bind-Value="@Author.Lastname" class="form-control" id="authorLastname" placeholder="Lastname"></InputText>
+                    <InputText @bind-Value="@Author.Lastname" class="form-control" placeholder="Lastname"></InputText>
                     <ValidationMessage For="() => Author.Lastname"></ValidationMessage>
                 </div>
-                <div class="form-group col-6">
+                <div class="form-group">
                     <label for="authorCountryOfOrigin">Country of Origin</label>
-                    <InputSelect @bind-Value="@Author.CountryOfOriginId" class="form-select" id="authorCountryOfOrigin">
+                    <InputSelect @bind-Value="@Author.CountryOfOriginId" class="form-select">
                         <option value="0" disabled selected>Please select a country...</option>
                         @foreach (var country in Countries)
                         {
@@ -41,14 +41,14 @@
                     </InputSelect>
                     <ValidationMessage For="() => Author.CountryOfOriginId"></ValidationMessage>
                 </div>
-                <div class="form-group col-6">
+                <div class="form-group">
                     <label for="authorImage">Upload Author's Portrait</label>
-                    <InputFile id="authorImage"></InputFile>
+                    <InputFile OnChange="HandleFileUpload"></InputFile>
                     <ValidationMessage For="() => Author.ImageUrl"></ValidationMessage>
                 </div>
-                <div class="form-group col-10">
+                <div class="form-group">
                     <label for="authorBio">Mini Bio</label>
-                    <SfRichTextEditor @bind-Value="Author.MiniBio" id="authorBio"></SfRichTextEditor>
+                    <SfRichTextEditor @bind-Value="Author.MiniBio"></SfRichTextEditor>
                     <ValidationMessage For="() => Author.MiniBio"></ValidationMessage>
                 </div>
                 <div class="mt-2 form-group">
@@ -84,6 +84,7 @@
 
     private async Task LoadAuthor()
     {
+        Countries = await _countryRepository.GetAll();
         if (AuthorId > 0)
         {
             PageTitle = "Update";
@@ -107,7 +108,7 @@
                         fileInfo.Extension.ToLower() == ".png" ||
                         fileInfo.Extension.ToLower() == ".jpeg")
                     {
-                        Author.ImageUrl = await _fileUpload.UploadFile(file);
+                        Author.ImageUrl = await _fileUpload.UploadFile(file, "authors");
                         await _jsRuntime.ToastrSuccess("Image Uploaded Successfully");
                     }
                     else

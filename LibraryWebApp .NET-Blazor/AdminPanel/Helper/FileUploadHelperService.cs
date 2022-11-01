@@ -10,7 +10,7 @@ namespace AdminPanel.Helper
         {
             _webHostEnvironment = webHostEnvironment;
         }
-        public async Task<string> UploadFile(IBrowserFile browserFile)
+        public async Task<string> UploadFile(IBrowserFile browserFile, string imageFor)
         {
             // Get file info
             FileInfo fileInfo = new(browserFile.Name);
@@ -19,7 +19,7 @@ namespace AdminPanel.Helper
             var fileName = Guid.NewGuid().ToString() + fileInfo.Extension;
 
             // Get directory path
-            var folderDirectory = $"{_webHostEnvironment}\\images\\authors";
+            var folderDirectory = $"{_webHostEnvironment.WebRootPath}\\images\\{imageFor}";
 
             // If directory doen't exist, create it
             if (!Directory.Exists(folderDirectory))
@@ -35,16 +35,16 @@ namespace AdminPanel.Helper
             await browserFile.OpenReadStream().CopyToAsync(fileStream);
 
             // Return file's directory path
-            return fullFilePath;
+            return $"/images/{imageFor}/{fileName}";
         }
 
         public bool DeleteFile(string filePath)
         {
             // Check if file exists
-            if (File.Exists(filePath))
+            if (File.Exists(_webHostEnvironment.WebRootPath + filePath))
             {
                 // If it exists delete it and return true
-                File.Delete(filePath);
+                File.Delete(_webHostEnvironment.WebRootPath + filePath);
                 return true;
             }
             // Else return false;

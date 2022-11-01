@@ -4,7 +4,7 @@ namespace AdminPanel.Helper.IServices
 {
     public interface IFileUpload
     {
-        Task<string> UploadFile(IBrowserFile browserFile);
+        Task<string> UploadFile(IBrowserFile browserFile, string imageFor);
         bool DeleteFile(string filePath);
     }
 }
