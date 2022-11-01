@@ -1,4 +1,5 @@
 using AdminPanel.Helper;
+using AdminPanel.Helper.IServices;
 using Business;
 using Business.IRepository;
 using Data.DataContext;
@@ -38,7 +39,8 @@ namespace AdminPanel
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
-            
+
+            builder.Services.AddScoped<IFileUpload, FileUploadHelperService>();
 
             var app = builder.Build();
 
