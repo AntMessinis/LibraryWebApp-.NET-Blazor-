@@ -19,7 +19,7 @@ namespace DTO
         public CountryDto CountryOfOrigin { get; set; } = null!;
         [Required(ErrorMessage = "You must add Author's bio")]
         public string MiniBio { get; set; } = null!;
-        public string ImageUrl { get; set; } = null!;
+        public string AuthorImageUrl { get; set; } = null!;
         public IEnumerable<CategoryDto> Categories { get; set; }
         public IEnumerable<BookDto> BooksAuthored { get; set; }
     }

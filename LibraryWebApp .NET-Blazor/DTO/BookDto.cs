@@ -15,6 +15,7 @@ namespace DTO
         public string Isbn { get; set; } = null!;
         [Required(ErrorMessage = "You must add the book's summary")]
         public string Description { get; set; } = null!;
+        public string BookImageUrl { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "You must add book's language")]
         public int LanguageId { get; set; }
         public LanguageDto Language { get; set; }

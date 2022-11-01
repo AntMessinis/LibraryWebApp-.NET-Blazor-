@@ -16,7 +16,6 @@ namespace Data
         public string Firstname { get; set; } = null!;
         [StringLength(50)]
         public string Lastname { get; set; } = null!;
-        [StringLength(500)]
         public string AuthorImageUrl { get; set; }
         [Column(TypeName = "ntext")]
         public string MiniBio { get; set; }

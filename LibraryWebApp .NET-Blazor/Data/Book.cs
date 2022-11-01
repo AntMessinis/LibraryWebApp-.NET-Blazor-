@@ -19,6 +19,7 @@ namespace Data
         public string Isbn { get; set; } = null!;
         [Column(TypeName = "ntext")]
         public string Description { get; set; } = null!;
+        public string BookImageUrl { get; set; }
         public int? LanguageId { get; set; }
         [ForeignKey("LanguageId")]
         public Language Language { get; set; }

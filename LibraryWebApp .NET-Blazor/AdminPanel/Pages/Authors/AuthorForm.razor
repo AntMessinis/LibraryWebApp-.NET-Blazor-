@@ -9,7 +9,7 @@
 
 <div class="row my-2">
     <h3 class="card-title text-primary">@PageTitle Author</h3>
-    <div class="col-md-10">
+    <div class="col-md-10 mt-2">
         @if (IsLoading)
         {
             <div class="text-center">
@@ -25,12 +25,12 @@
                     <InputText @bind-Value="@Author.Firstname" class="form-control" placeholder="Firstname"></InputText>
                     <ValidationMessage For="() => Author.Firstname"></ValidationMessage>
                 </div>
-                <div class="form-group">
+                <div class="form-group mt-2">
                     <label for="authorLastname">Lastname</label>
                     <InputText @bind-Value="@Author.Lastname" class="form-control" placeholder="Lastname"></InputText>
                     <ValidationMessage For="() => Author.Lastname"></ValidationMessage>
                 </div>
-                <div class="form-group">
+                <div class="form-group mt-2">
                     <label for="authorCountryOfOrigin">Country of Origin</label>
                     <InputSelect @bind-Value="@Author.CountryOfOriginId" class="form-select">
                         <option value="0" disabled selected>Please select a country...</option>
@@ -41,25 +41,25 @@
                     </InputSelect>
                     <ValidationMessage For="() => Author.CountryOfOriginId"></ValidationMessage>
                 </div>
-                <div class="form-group">
-                    <label for="authorImage">Upload Author's Portrait</label>
+                <div class="form-group mt-2">
+                    <label for="authorImage">Upload Author's Portrait: </label><br/>
                     <InputFile OnChange="HandleFileUpload"></InputFile>
-                    <ValidationMessage For="() => Author.ImageUrl"></ValidationMessage>
+                    <ValidationMessage For="() => Author.AuthorImageUrl"></ValidationMessage>
                 </div>
-                <div class="form-group">
+                <div class="form-group mt-2">
                     <label for="authorBio">Mini Bio</label>
                     <SfRichTextEditor @bind-Value="Author.MiniBio"></SfRichTextEditor>
                     <ValidationMessage For="() => Author.MiniBio"></ValidationMessage>
                 </div>
-                <div class="mt-2 form-group">
-                    <button class="btn btn-primary">@PageTitle</button>
+                <div class="mt-2 form-group mt-2">
+                    <button class="btn btn-primary" @onclick="UpdateOrInsertAuthor">@PageTitle</button>
                     <NavLink href="/authors" class="btn btn-secondary">Back</NavLink>
                 </div>
             </EditForm>
         }
     </div>
     <div class="col-md-2 mt-1">
-        <img src="@Author.ImageUrl" class="w-100"/>
+        <img src="@Author.AuthorImageUrl" class="w-100"/>
     </div>
 </div>
 
@@ -68,11 +68,12 @@
     public int AuthorId { get; set; }
     public AuthorDto Author { get; set; } = new()
     {
-        ImageUrl = "/images/authors/defaultAuthor.jpg"
+        AuthorImageUrl = "/images/authors/defaultAuthor.jpg"
     };
     public IEnumerable<CountryDto> Countries { get; set; } = new List<CountryDto>();
     public bool IsLoading { get; set; } = true;
     public string PageTitle { get; set; } = "Add";
+    public string OldImgUrl { get; set; } = null!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -108,7 +109,8 @@
                         fileInfo.Extension.ToLower() == ".png" ||
                         fileInfo.Extension.ToLower() == ".jpeg")
                     {
-                        Author.ImageUrl = await _fileUpload.UploadFile(file, "authors");
+                        OldImgUrl = Author.AuthorImageUrl;
+                        Author.AuthorImageUrl = await _fileUpload.UploadFile(file, "authors");
                         await _jsRuntime.ToastrSuccess("Image Uploaded Successfully");
                     }
                     else
@@ -133,6 +135,10 @@
         {
             try
             {
+                if (OldImgUrl != Author.AuthorImageUrl && OldImgUrl != "/images/authors/defaultAuthor.jpg")
+                {
+                    _fileUpload.DeleteFile(OldImgUrl);
+                }
                 await _authorRepository.UpdateAsync(Author);
                 await _jsRuntime.ToastrSuccess($"{Author.Firstname} {Author.Lastname} was updated successfully");
             }

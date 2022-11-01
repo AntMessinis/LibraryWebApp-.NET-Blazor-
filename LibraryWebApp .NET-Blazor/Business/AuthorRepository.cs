@@ -37,7 +37,7 @@ namespace Business
 
         public async Task<IEnumerable<AuthorDto>> GetAll()
         {
-            return _mapper.Map<IEnumerable<Author>, IEnumerable<AuthorDto>>(await _db.Authors.ToListAsync());
+            return _mapper.Map<IEnumerable<Author>, IEnumerable<AuthorDto>>(await _db.Authors.Include(a => a.CountryOfOrigin).ToListAsync());
         }
 
         public async Task<AuthorDto> GetByIdAsync(int id)
@@ -53,17 +53,14 @@ namespace Business
         public async Task<AuthorDto> InsertAsync(AuthorDto dto)
         {
             var newAuthor = _mapper.Map<AuthorDto, Author>(dto);
-            try
+            var authorCountry = await _db.Countries.SingleOrDefaultAsync(c => c.Id == dto.CountryOfOriginId);
+            if (authorCountry != null)
             {
-                var insertedAuthor = await _db.Authors.AddAsync(newAuthor);
-                await _db.SaveChangesAsync();
-                return _mapper.Map<Author, AuthorDto>(insertedAuthor.Entity);
+                newAuthor.CountryOfOrigin = authorCountry;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            
+            var insertedAuthor = await _db.Authors.AddAsync(newAuthor);
+            await _db.SaveChangesAsync();
+            return _mapper.Map<Author, AuthorDto>(insertedAuthor.Entity);
         }
 
         public async Task<AuthorDto> UpdateAsync(AuthorDto dto)
@@ -75,7 +72,7 @@ namespace Business
                 {
                     authorToUpdate.Firstname = dto.Firstname;
                     authorToUpdate.Lastname = dto.Lastname;
-                    authorToUpdate.AuthorImageUrl = dto.ImageUrl;
+                    authorToUpdate.AuthorImageUrl = dto.AuthorImageUrl;
                     authorToUpdate.MiniBio = dto.MiniBio;
                     authorToUpdate.Categories = _mapper.Map<IEnumerable<CategoryDto>, IEnumerable<Category>>(dto.Categories);
                     authorToUpdate.BooksAuthored = _mapper.Map<IEnumerable<BookDto>, IEnumerable<Book>>(dto.BooksAuthored);
