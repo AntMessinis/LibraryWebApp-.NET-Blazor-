@@ -90,3 +90,7 @@ D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazo
 D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\Syncfusion.Blazor.Themes.dll
 D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\Syncfusion.Licensing.dll
 D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\System.IO.Pipelines.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\Syncfusion.Blazor.Calendars.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\Syncfusion.Blazor.Grids.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\Syncfusion.ExcelExport.Net.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\Syncfusion.PdfExport.Net.dll

@@ -1,0 +1,128 @@
+﻿@page "/books"
+@inject IBookRepository _bookRepository
+@inject IJSRuntime _jsRuntime
+
+<div class="row mt-2">
+    <div class="col-6">
+        <h4 class="card-title text-primary">Book List</h4>
+    </div>
+    <div class="col-4 offset-2">
+        <NavLink href="/books/create" class="btn btn-primary form-control">Add Book</NavLink>
+    </div>
+    <div class="col-12 p-4">
+        @if (Books.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Cover</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Isbn</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Language</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Publisher</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var book in Books)
+                    {
+                        <tr>
+                            <td>@book.Id</td>
+                            <td><img src="@book.BookImageUrl" width="100" height="100" /></td>
+                            <td>@book.Title</td>
+                            <td>@book.Isbn</td>
+                            <td>
+                                <ul>
+                                    @foreach (var author in book.Authors)
+                                    {
+                                        <li>@author.Firstname @author.Lastname</li>
+                                    }
+                                </ul>
+                            </td>
+                            <td width="400">@book.Description</td>
+                            <td>@book.Language.LanguageName</td>
+                            <td>
+                                <ul>
+                                    @foreach (var category in book.Categories)
+                                    {
+                                        <li>@category.CategoryName</li>
+                                    }
+                                </ul>
+                            </td>
+                            <td>@book.Publisher.PublisherName</td>
+                            <td>
+                                <div>
+                                     <NavLink href=@($"/authors/update/{book.Id}") class="btn btn-warning my-1">Update</NavLink>
+                                     <button class="btn btn-danger my-1" @onclick="() => DeleteBook(book.Id, book.Title)">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            if (IsLoading)
+            {
+                <div class="text-center">
+                    <img src="/images/loading.gif">
+                </div>
+            }
+            else
+            {
+                <p>There are no books in the database.</p>
+            }
+        }
+    </div>
+</div>
+
+@code {
+    private IEnumerable<BookDto> Books { get; set; } = new List<BookDto>();
+    public bool IsLoading { get; set; } = true;
+    public int DeleteBookId { get; set; }
+    public string DeleteBookTitle { get; set; } = null!;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadBooks();
+        }
+    }
+
+    private async Task LoadBooks()
+    {
+        Books = await _bookRepository.GetAll();
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task DeleteBook(int id, string title)
+    {
+        DeleteBookId = id;
+        DeleteBookTitle = title;
+        await _jsRuntime.ShowConfirmModal();
+    }
+
+    private async Task DeleteConfirmed(bool isConfirmed)
+    {
+        IsLoading = true;
+        if (isConfirmed && DeleteBookId > 0)
+        {
+            try
+            {
+                await _bookRepository.DeleteAsync(DeleteBookId);
+                await LoadBooks();
+                await _jsRuntime.ToastrSuccess($"{DeleteBookTitle} was successfully deleted.");
+            }
+            catch (Exception ex)
+            {
+                await _jsRuntime.ToastrError(ex.Message);
+                IsLoading = false;
+            }
+        }
+    }
+}

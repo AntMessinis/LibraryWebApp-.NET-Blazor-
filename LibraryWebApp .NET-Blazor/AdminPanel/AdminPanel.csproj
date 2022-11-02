@@ -19,6 +19,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="20.3.0.52" />
+    <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.3.0.52" />
     <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="20.3.0.52" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.3.0.52" />
   </ItemGroup>
