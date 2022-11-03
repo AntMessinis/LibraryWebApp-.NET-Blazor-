@@ -25,13 +25,16 @@
                     </div>
                         <div class="form-group">
                             <label>Country</label>
-                                <InputSelect @bind-Value="City.CountryId" class="form-select">
+                            @*    <InputSelect @bind-Value="City.CountryId" class="form-select">
                                 <option value="0">Please choose a country...</option>
                                 @foreach (var country in Countries)
                             {
                                 <option value="@country.Id">@country.CountryName</option>
                              }
-                            </InputSelect>
+                            </InputSelect>*@
+                            <SfDropDownList TValue="int" TItem="CountryDto" DataSource="Countries">
+                                <DropDownListFieldSettings Value="Id" Text="CountryName"></DropDownListFieldSettings>
+                            </SfDropDownList>
                            <ValidationMessage For="()=>City.CountryId"></ValidationMessage>
                         </div>
                     <div class="form-group mt-2">

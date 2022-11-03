@@ -1,0 +1,176 @@
+﻿@page "/books/create"
+@page "/books/update/{BookId:int}"
+@inject IBookRepository _bookRepository
+@inject IAuthorRepository _authorRepository
+@inject ICategoryRepository _categoryRepository
+@inject IPublisherRepository _publisherRepository
+@inject IJSRuntime _jsRuntime
+@inject IFileUpload _fileUpload
+@inject NavigationManager _navigationManager
+<div class="row my-2">
+    <h3 class="card-title text-primary">@PageTitle Book</h3>
+    <div class="col-10">
+        @if (IsLoading)
+        {
+            <div class="text-center">
+                <img src="/images/loading.gif">
+            </div>
+        }
+        else
+        {
+            <EditForm Model="Book">
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+                <div class="form-group">
+                    <label>Title</label>
+                    <InputText @bind-Value="Book.Title" class="form-control"></InputText>
+                    <ValidationMessage For="() => Book.Title"></ValidationMessage>
+                </div>
+                <div class="form-group">
+                    <label>Isbn</label>
+                    <InputText @bind-Value="Book.Isbn" class="form-control"></InputText>
+                    <ValidationMessage For="() => Book.Isbn"></ValidationMessage>
+                </div>
+                <div class="form-group">
+                    <label>Author(s)</label>
+                    <SfMultiSelect TValue="int[]" TItem="AuthorDto" Placeholder="Select Author(s)" DataSource="Authors" class="form-control">
+                        <MultiSelectFieldSettings Text="Lastname" Value="Id"></MultiSelectFieldSettings>
+                    </SfMultiSelect>
+                    <ValidationMessage For="() => Book.Authors"></ValidationMessage>
+                </div>
+                <div class="form-group">
+                    <label>Category(ies)</label>
+                    <SfMultiSelect TValue="int[]" TItem="CategoryDto" Placeholder="Select Category(ies)" DataSource="Categories" class="form-control">
+                        <MultiSelectFieldSettings Text="CategoryName" Value="Id"></MultiSelectFieldSettings>
+                    </SfMultiSelect>
+                </div>
+                <div class="form-group">
+                   <label>Publisher</label>
+                   <SfDropDownList TValue="int[]" TItem="PublisherDto" Placeholder="Select Publisher" PopupHeight="350px" DataSource="Publishers">
+                        <DropDownListFieldSettings Value="Id" Text="PublisherName"></DropDownListFieldSettings>
+                   </SfDropDownList>
+                   <ValidationMessage For="() => Book.Publisher"></ValidationMessage>
+                </div>
+                <div class="form-group">
+                   <label>Upload Book's Cover:</label><br/>
+                   <InputFile ></InputFile>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <SfRichTextEditor @bind-Value="@Book.Description" class="form-control" Height="300px"></SfRichTextEditor>
+                    <ValidationMessage For="() => Book.Description"></ValidationMessage>
+                </div>
+                <div class="form-group mt-2">
+                    <button class="btn btn-primary">@PageTitle</button>
+                    <NavLink href="/books" class="btn btn-secondary">Back</NavLink>
+                </div>
+            </EditForm>
+        }
+    </div>
+    <div class="col-md-2 mt-1">
+        <img src="@Book.BookImageUrl" class="w-100"/>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public int BookId { get; set; }
+    public BookDto Book { get; set; } = new()
+    {
+        BookImageUrl = "/images/books/defaultBook.jpg"
+    };
+    public bool IsLoading { get; set; } = true;
+    public string PageTitle { get; set; } = "Add";
+    public string OldImageUrl { get; set; } = null!;
+    public IEnumerable<AuthorDto> Authors { get; set; } = new List<AuthorDto>();
+    public IEnumerable<CategoryDto> Categories { get; set; } = new List<CategoryDto>();
+    public IEnumerable<PublisherDto> Publishers { get; set; } = new List<PublisherDto>();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadBook();
+        }
+    }
+
+    private async Task LoadBook()
+    {
+        if (BookId > 0)
+        {
+            Book = await _bookRepository.GetByIdAsync(BookId);
+            PageTitle = "Update";
+            OldImageUrl = Book.BookImageUrl;
+        }
+        Authors = await _authorRepository.GetAll();
+        Categories = await _categoryRepository.GetAll();
+        Publishers = await _publisherRepository.GetAll();
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task OnFileUpload(InputFileChangeEventArgs args)
+    {
+        IsLoading = true;
+        try
+        {
+            if (args.File != null)
+            {
+                FileInfo fileInfo = new FileInfo(args.File.Name);
+                if(fileInfo.Extension.ToLower() == ".png" ||
+                   fileInfo.Extension.ToLower() == ".jpg" ||
+                   fileInfo.Extension.ToLower() == ".jpeg")
+                {
+                    if(OldImageUrl != "/images/books/defaultBook.jpg")
+                    {
+                        OldImageUrl = Book.BookImageUrl;
+                    }
+                    Book.BookImageUrl = await _fileUpload.UploadFile(args.File, "books");
+                    await _jsRuntime.ToastrSuccess("Image uploaded successfully");
+                }
+                else
+                {
+                    await _jsRuntime.ToastrError("Please use only .png, .jpg or .jpeg images");
+                    return;
+                }
+            }
+            IsLoading = false;
+        }
+        catch(Exception ex)
+        {
+            await _jsRuntime.ToastrError(ex.Message);
+            IsLoading = false;
+        }
+    }
+
+    private async Task UpdateOrInsertBook()
+    {
+        if (BookId > 0)
+        {
+            try
+            {
+                if (OldImageUrl != Book.BookImageUrl && OldImageUrl != "/images/books/defaultBook.jpg")
+                {
+                    _fileUpload.DeleteFile(OldImageUrl);
+                }
+                await _bookRepository.UpdateAsync(Book);
+                await _jsRuntime.ToastrSuccess($"{Book.Title} was updated successfully.");
+            }
+            catch(Exception ex)
+            {
+                await _jsRuntime.ToastrError(ex.Message);
+            }
+        }
+        else
+        {
+            try
+            {
+                await _bookRepository.InsertAsync(Book);
+                await _jsRuntime.ToastrSuccess($"{Book.Title} was added successfully.");
+            }
+            catch(Exception ex)
+            {
+                await _jsRuntime.ToastrError(ex.Message);
+            }
+        }
+        _navigationManager.NavigateTo("/books");
+    }
+}

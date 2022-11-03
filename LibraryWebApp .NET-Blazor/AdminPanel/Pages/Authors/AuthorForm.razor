@@ -32,13 +32,16 @@
                 </div>
                 <div class="form-group mt-2">
                     <label for="authorCountryOfOrigin">Country of Origin</label>
-                    <InputSelect @bind-Value="@Author.CountryOfOriginId" class="form-select">
+                    @*<InputSelect @bind-Value="@Author.CountryOfOriginId" class="form-select">
                         <option value="0" disabled selected>Please select a country...</option>
                         @foreach (var country in Countries)
                         {
                             <option value="@country.Id">@country.CountryName</option>
                         }
-                    </InputSelect>
+                    </InputSelect>*@
+                    <SfDropDownList TValue="int" TItem="CountryDto" DataSource="Countries">
+                        <DropDownListFieldSettings Value="Id" Text="CountryName"></DropDownListFieldSettings>
+                     </SfDropDownList>      
                     <ValidationMessage For="() => Author.CountryOfOriginId"></ValidationMessage>
                 </div>
                 <div class="form-group mt-2">
@@ -48,7 +51,7 @@
                 </div>
                 <div class="form-group mt-2">
                     <label for="authorBio">Mini Bio</label>
-                    <SfRichTextEditor @bind-Value="Author.MiniBio"></SfRichTextEditor>
+                    <SfRichTextEditor @bind-Value="Author.MiniBio" Height="350px"></SfRichTextEditor>
                     <ValidationMessage For="() => Author.MiniBio"></ValidationMessage>
                 </div>
                 <div class="mt-2 form-group mt-2">

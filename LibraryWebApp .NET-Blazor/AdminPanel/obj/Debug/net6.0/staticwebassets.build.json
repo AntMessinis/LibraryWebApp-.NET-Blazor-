@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Crt8WdXGCEF2PFMql9FVjpWTuyncvN8JTwq07CcwDqo=",
+  "Hash": "Y+eNFlm5X86yl5r0GosGDQhGYier88NmN8rERqeKfUk=",
   "Source": "AdminPanel",
   "BasePath": "_content/AdminPanel",
   "Mode": "Default",
@@ -1443,6 +1443,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\authors\\defaultAuthor.jpg"
+    },
+    {
+      "Identity": "D:\\Antonis\\Coding_Factory\\C#\\LibraryWebApp-.NET-Blazor-\\LibraryWebApp .NET-Blazor\\AdminPanel\\wwwroot\\images\\authors\\fc7ce07c-99f9-4f16-b1de-7377458868de.jpg",
+      "SourceId": "AdminPanel",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Antonis\\Coding_Factory\\C#\\LibraryWebApp-.NET-Blazor-\\LibraryWebApp .NET-Blazor\\AdminPanel\\wwwroot\\",
+      "BasePath": "_content/AdminPanel",
+      "RelativePath": "images/authors/fc7ce07c-99f9-4f16-b1de-7377458868de.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\authors\\fc7ce07c-99f9-4f16-b1de-7377458868de.jpg"
+    },
+    {
+      "Identity": "D:\\Antonis\\Coding_Factory\\C#\\LibraryWebApp-.NET-Blazor-\\LibraryWebApp .NET-Blazor\\AdminPanel\\wwwroot\\images\\books\\defaultBook.jpg",
+      "SourceId": "AdminPanel",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Antonis\\Coding_Factory\\C#\\LibraryWebApp-.NET-Blazor-\\LibraryWebApp .NET-Blazor\\AdminPanel\\wwwroot\\",
+      "BasePath": "_content/AdminPanel",
+      "RelativePath": "images/books/defaultBook.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\books\\defaultBook.jpg"
     },
     {
       "Identity": "D:\\Antonis\\Coding_Factory\\C#\\LibraryWebApp-.NET-Blazor-\\LibraryWebApp .NET-Blazor\\AdminPanel\\wwwroot\\images\\loading.gif",
