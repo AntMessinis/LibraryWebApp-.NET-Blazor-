@@ -9,7 +9,7 @@
 @inject NavigationManager _navigationManager
 <div class="row my-2">
     <h3 class="card-title text-primary">@PageTitle Book</h3>
-    <div class="col-10">
+    
         @if (IsLoading)
         {
             <div class="text-center">
@@ -18,6 +18,7 @@
         }
         else
         {
+            <div class="col-10">
             <EditForm Model="Book">
                 <DataAnnotationsValidator></DataAnnotationsValidator>
                 <div class="form-group">
@@ -33,7 +34,7 @@
                 <div class="form-group">
                     <label>Author(s)</label>
                     <SfMultiSelect TValue="int[]" TItem="AuthorDto" Placeholder="Select Author(s)" DataSource="Authors" class="form-control">
-                        <MultiSelectFieldSettings Text="Lastname" Value="Id"></MultiSelectFieldSettings>
+                        <MultiSelectFieldSettings Text="Firstname Lastname" Value="Id"></MultiSelectFieldSettings>
                     </SfMultiSelect>
                     <ValidationMessage For="() => Book.Authors"></ValidationMessage>
                 </div>
@@ -64,11 +65,11 @@
                     <NavLink href="/books" class="btn btn-secondary">Back</NavLink>
                 </div>
             </EditForm>
+            </div>
+            <div class="col-md-2 mt-1">
+                <img src="@Book.BookImageUrl" class="w-100"/>
+            </div>
         }
-    </div>
-    <div class="col-md-2 mt-1">
-        <img src="@Book.BookImageUrl" class="w-100"/>
-    </div>
 </div>
 @code {
     [Parameter]
