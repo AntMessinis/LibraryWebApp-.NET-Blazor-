@@ -1,0 +1,117 @@
+﻿@page "/publishers"
+@inject IPublisherRepository _publisherRepository
+@inject IJSRuntime _jsRuntime
+
+<div class="row my-4">
+    <div class="col-6">
+        <h3 class="card-title text-primary">Publisher List</h3>
+    </div>
+    <div class="col-4 offset-2"><a href="/publishers/create" class="btn btn-primary form-control">Add Publisher</a></div>
+    <div class="col-12 p-4">
+        <_DeleteConfirmModal DeleteName="@DeletePublisherName" IsParentComponentProssesing="@IsLoading" OnDeleteConfirmed="DeleteConfirmed"></_DeleteConfirmModal>
+        @if (Publishers.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Publisher Name</th>
+                        <th scope="col">Books Published</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var publisher in Publishers)
+                    {
+                        <tr>
+                            <td>@publisher.Id</td>
+                            <td>@publisher.PublisherName</td>
+                            <td>
+                                @if (publisher.BooksPublished.Any())
+                                {
+                                    <ul>
+                                        @foreach (var book in publisher.BooksPublished)
+                                        {
+                                            <li>@book.Title</li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <p>No books Published</p>
+                                }
+                            </td>
+                            <td>
+                                <NavLink href=@($"/publishers/update/{publisher.Id}") class="btn btn-warning mx-1">Update</NavLink>
+                                <button class="btn btn-danger" @onclick="() => DeletePublisher(publisher.Id, publisher.PublisherName)">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            @if (IsLoading)
+            {
+                <div class="text-center">
+                    <img src="/images/loading.gif"/>
+                </div>
+            }
+            else
+            {
+                <p>There are no publishers in the database.</p>
+            }
+        }
+    </div>
+</div>
+
+@code {
+    public IEnumerable<PublisherDto> Publishers { get; set; } = new List<PublisherDto>();
+    public bool IsLoading { get; set; } = true;
+    public int DeletePublisherId { get; set; }
+    public string DeletePublisherName { get; set; } = null!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadPublishers();
+        }
+    }
+
+    private async Task LoadPublishers()
+    {
+        Publishers = await _publisherRepository.GetAll();
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task DeletePublisher(int id, string name)
+    {
+        DeletePublisherId = id;
+        DeletePublisherName = name;
+        await _jsRuntime.ShowConfirmModal();
+    }
+
+    private async Task DeleteConfirmed(bool isConfirmed)
+    {
+        IsLoading = true;
+        if (isConfirmed && DeletePublisherId > 0)
+        {
+            try
+            {
+                await _publisherRepository.DeleteAsync(DeletePublisherId);
+                await _jsRuntime.ToastrSuccess($"{DeletePublisherName} was deleted successfully");
+                await LoadPublishers();
+            }
+            catch(Exception ex)
+            {
+                await _jsRuntime.ToastrError(ex.Message);
+                IsLoading = false;
+            }
+        }
+        
+        await _jsRuntime.HideConfirmModal();
+    }
+}

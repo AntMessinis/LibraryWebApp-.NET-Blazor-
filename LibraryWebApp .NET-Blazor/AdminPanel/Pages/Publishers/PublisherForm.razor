@@ -1,0 +1,94 @@
+﻿@page "/publishers/create"
+@page "/publishers/update/{PublisherId:int}"
+@inject IPublisherRepository _publisherRepository
+@inject IBookRepository _bookRepository
+@inject IJSRuntime _jsRuntime
+@inject NavigationManager _navigationManager
+<div class="row my-2">
+    <h3 class="card-title text-primary">@PageTitle Publisher</h3>
+    @if (IsLoading)
+    {
+        <div class="text-center">
+            <img src="/images/loading.gif">
+        </div>
+    }
+    else
+    {
+        <EditForm Model="Publisher" OnValidSubmit="InsertOrUpdatePublisher">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <div class="form-group mt-3">
+                <label>Publisher Name</label>
+                <InputText @bind-Value="Publisher.PublisherName" class="form-control"></InputText>
+                <ValidationMessage For="() => Publisher.PublisherName"></ValidationMessage>
+            </div>
+            <div class="form-group mt-3">
+                <label>Books Published</label>
+                <SfMultiSelect TValue="int[]" TItem="BookDto" Placeholder="Select Titles">
+                    <MultiSelectFieldSettings Text="Title" Value="Id"></MultiSelectFieldSettings>
+                </SfMultiSelect>
+            </div>
+            <div class="form-group mt-3">
+                <button class="btn btn-primary">@PageTitle</button>
+                <NavLink href="/publishers" class="btn btn-secondary">Back</NavLink>
+            </div>
+        </EditForm>
+    }
+</div>
+@code {
+    [Parameter]
+    public int PublisherId { get; set; }
+    public PublisherDto Publisher { get; set; } = new();
+    public bool IsLoading { get; set; } = true;
+    public IEnumerable<BookDto> Books { get; set; } = new List<BookDto>();
+    public string PageTitle { get; set; } = "Add";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadPublisher();
+        }
+    }
+
+    private async Task LoadPublisher()
+    {
+        if (PublisherId > 0)
+        {
+            Publisher = await _publisherRepository.GetByIdAsync(PublisherId);
+            PageTitle = "Update";
+        }
+
+        Books = await _bookRepository.GetAll();
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task InsertOrUpdatePublisher()
+    {
+        if (PublisherId > 0)
+        {
+            try
+            {
+                await _publisherRepository.UpdateAsync(Publisher);
+                await _jsRuntime.ToastrSuccess($"{Publisher.PublisherName} was updated successfully");
+            }
+            catch(Exception ex)
+            {
+                await _jsRuntime.ToastrError(ex.Message);
+            }
+        }
+        else
+        {
+            try
+            {
+                await _publisherRepository.InsertAsync(Publisher);
+                await _jsRuntime.ToastrSuccess($"{Publisher.PublisherName} was added successfully.");
+            }
+            catch (Exception ex)
+            {
+                await _jsRuntime.ToastrError(ex.Message);
+            }
+        }
+        _navigationManager.NavigateTo("/publishers");
+    }
+}
