@@ -1,5 +1,133 @@
-﻿<h3>UserDetails</h3>
+﻿@page "/users/{UserId:int}"
+@inject IUserRepository _userRepository
+@inject IJSRuntime _jsRuntime
+
+<div class="row my-2">
+    @if (IsLoading)
+    {
+        <img src="/images/loading.gif" class="text-center" />
+    }
+    else
+    {
+        @if (UserId > 0)
+        {
+            <div class="col-md-10">
+                <div class="col-4">
+                    <label>Firstname</label>
+                    <InputText @bind-Value="@User.UserMemberhipDetails.Firstname" disabled></InputText>
+                </div>
+                <div class="col-4">
+                    <label>Lastname</label>
+                    <InputText @bind-Value="@User.UserMemberhipDetails.Lastname" disabled></InputText>
+                </div>
+                <div class="col-4">
+                    <label>Username</label>
+                    <InputText @bind-Value="@User.Username" disabled></InputText>
+                </div>
+                <div class="col-4">
+                    <label>Email</label>
+                    <input type="email" @bind-value="@User.Email" disabled></input>
+                </div>
+                <div class="col-4">
+                    <label>Address</label>
+                    <InputText @bind-Value="@User.UserMemberhipDetails.Address"></InputText>
+                </div>
+                <div class="col-4">
+                    <label>City</label>
+                    <InputText @bind-Value="@User.UserMemberhipDetails.CityOfResidence.CityName"></InputText>
+                </div>
+                <div>
+                    <label>Country</label>
+                    <InputText @bind-Value="@User.UserMemberhipDetails.CityOfResidence.Country.CountryName"></InputText>
+                </div>
+                <div class="col-4">
+                    <label>Member since:</label>
+                    <InputDate @bind-Value="@User.UserMemberhipDetails.MembershipCreationDate"></InputDate>
+                </div>
+                <div class="col-4">
+                    <label>Membership expiration Date</label>
+                    <InputDate @bind-Value="@User.UserMemberhipDetails.MembershipExpirationDate"></InputDate>
+                </div>
+                <div class="col-4">
+                    <label>Has Active Membership</label>
+                    <InputCheckbox @bind-Value="@User.UserMemberhipDetails.HasActiveMembership"></InputCheckbox>
+                </div>
+                <div class="col-4">
+                    <label>Has Premium Membership</label>
+                    <InputCheckbox @bind-Value="@User.UserMemberhipDetails.HasPremiumMembership"></InputCheckbox>
+                </div>
+                @if (User.BooksCurrentlyBorrowed.Any())
+                {
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Date Borrowed</th>
+                                <th scope="col">Official Return Date</th>
+                                <th scope="col">Actual Return Date</th>
+                                <th scope="col">Returned</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var borrow in User.BooksCurrentlyBorrowed)
+                            {
+                                <tr>
+                                    <td>@borrow.Book.Title</td>
+                                    <td>@borrow.BorrowDate</td>
+                                    <td>@borrow.ReturnDate</td>
+                                    <td>@borrow.ActualReturnDate</td>
+                                    <td>
+                                        @if (borrow.IsReturned)
+                                        {
+                                            <span>Yes</span>
+                                        }
+                                        else
+                                        {
+                                            <span>No</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>User @User.UserMemberhipDetails.Firstname @User.UserMemberhipDetails.Lastname hasn't borrowed any books yet.</p>
+                }
+            </div>
+            <div class="col-md-2 mt-1">
+                <img src="@User.UserImageUrl"/>
+            </div>
+        }
+        else
+        {
+            <p>Invalid User</p>
+        }
+    }
+</div>
 
 @code {
+    [Parameter]
+    public int UserId { get; set; }
+    public UserDto User { get; set; } = new();
+    public bool IsLoading { get; set; } = true;
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadUser();
+        }
+    }
+
+    private async Task LoadUser()
+    {
+        if (UserId > 0)
+        {
+            User = await _userRepository.GetByIdAsync(UserId);
+        }
+        IsLoading = false;
+        StateHasChanged();
+    }
 }
