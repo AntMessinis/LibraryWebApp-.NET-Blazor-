@@ -94,3 +94,8 @@ D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazo
 D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\Syncfusion.Blazor.Grids.dll
 D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\Syncfusion.ExcelExport.Net.dll
 D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\bin\Debug\net6.0\Syncfusion.PdfExport.Net.dll
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\obj\Debug\net6.0\staticwebassets\msbuild.AdminPanel.Microsoft.AspNetCore.StaticWebAssets.props
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\obj\Debug\net6.0\staticwebassets\msbuild.build.AdminPanel.props
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.AdminPanel.props
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.AdminPanel.props
+D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\AdminPanel\obj\Debug\net6.0\staticwebassets.pack.json

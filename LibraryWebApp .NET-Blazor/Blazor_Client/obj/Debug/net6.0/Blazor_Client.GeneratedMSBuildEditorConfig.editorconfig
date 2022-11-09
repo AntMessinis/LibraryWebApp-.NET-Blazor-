@@ -1,0 +1,41 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = Blazor_Client
+build_property.RootNamespace = Blazor_Client
+build_property.ProjectDir = D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Blazor_Client\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Antonis\Coding_Factory\C#\LibraryWebApp-.NET-Blazor-\LibraryWebApp .NET-Blazor\Blazor_Client
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/Blazor_Client/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/Blazor_Client/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/Blazor_Client/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/Blazor_Client/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/Blazor_Client/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-n60u7oab00
+
+[D:/Antonis/Coding_Factory/C\#/LibraryWebApp-.NET-Blazor-/LibraryWebApp .NET-Blazor/Blazor_Client/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-k8p1nvxuvc

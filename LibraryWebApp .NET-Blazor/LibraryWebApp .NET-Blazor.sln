@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{470B1CEE-FE2F-4A1B-A9E1-002E25AB7018}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_API", "Web_API\Web_API.csproj", "{02E13FE2-E2E3-4F61-B616-E52A62BA1CA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_API", "Web_API\Web_API.csproj", "{02E13FE2-E2E3-4F61-B616-E52A62BA1CA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor_Client", "Blazor_Client\Blazor_Client.csproj", "{BBBF960D-651B-41FD-B24D-D48D2E89D23F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{02E13FE2-E2E3-4F61-B616-E52A62BA1CA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02E13FE2-E2E3-4F61-B616-E52A62BA1CA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02E13FE2-E2E3-4F61-B616-E52A62BA1CA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBBF960D-651B-41FD-B24D-D48D2E89D23F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBBF960D-651B-41FD-B24D-D48D2E89D23F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBBF960D-651B-41FD-B24D-D48D2E89D23F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBBF960D-651B-41FD-B24D-D48D2E89D23F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
