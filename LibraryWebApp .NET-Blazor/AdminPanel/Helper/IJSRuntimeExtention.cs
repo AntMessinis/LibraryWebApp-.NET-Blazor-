@@ -2,7 +2,7 @@
 
 namespace AdminPanel.Helper
 {
-    public static class IJSRuntimeExtention
+    public static class IJSRuntimeExtension
     {
         public static async ValueTask ToastrSuccess(this IJSRuntime jsRuntime, string message)
         {

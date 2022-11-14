@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "x2ZyW69oErHGbFJSJ+kkHCETu7dMTWPoSmjNyGjuwuM=",
+  "Hash": "HQ31IJU2Cy1u6wZXSoG9lcB8SrCk0kArcwbeJ/4Nulo=",
   "Source": "Blazor_Client",
   "BasePath": "/",
   "Mode": "Root",
@@ -7104,6 +7104,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\index.html"
+    },
+    {
+      "Identity": "D:\\Antonis\\Coding_Factory\\C#\\LibraryWebApp-.NET-Blazor-\\LibraryWebApp .NET-Blazor\\Blazor_Client\\wwwroot\\js\\helper.js",
+      "SourceId": "Blazor_Client",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Antonis\\Coding_Factory\\C#\\LibraryWebApp-.NET-Blazor-\\LibraryWebApp .NET-Blazor\\Blazor_Client\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "js/helper.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\helper.js"
     },
     {
       "Identity": "D:\\Antonis\\Coding_Factory\\C#\\LibraryWebApp-.NET-Blazor-\\LibraryWebApp .NET-Blazor\\Blazor_Client\\wwwroot\\sample-data\\weather.json",

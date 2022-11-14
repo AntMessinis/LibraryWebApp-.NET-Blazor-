@@ -63,33 +63,33 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[6.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[6.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[6.0.11, )"
             },
             "Syncfusion.Blazor.DropDowns": {
               "target": "Package",
-              "version": "[20.3.0.52, )"
+              "version": "[20.3.0.56, )"
             },
             "Syncfusion.Blazor.Grid": {
               "target": "Package",
-              "version": "[20.3.0.52, )"
+              "version": "[20.3.0.56, )"
             },
             "Syncfusion.Blazor.RichTextEditor": {
               "target": "Package",
-              "version": "[20.3.0.52, )"
+              "version": "[20.3.0.56, )"
             },
             "Syncfusion.Blazor.Themes": {
               "target": "Package",
-              "version": "[20.3.0.52, )"
+              "version": "[20.3.0.56, )"
             }
           },
           "imports": [
@@ -231,17 +231,21 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[6.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[6.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[6.0.11, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
             }
           },
           "imports": [

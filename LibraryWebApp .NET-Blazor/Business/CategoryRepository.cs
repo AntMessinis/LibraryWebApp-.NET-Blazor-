@@ -36,6 +36,9 @@ namespace Business
 
         public async Task<IEnumerable<CategoryDto>> GetAll()
         {
+            var categories = await _db.Categories.ToListAsync();
+            var basicCategoriesIds = categories.Select(c => c.BaseCategoryId);
+            _db.BasicCategories.Where(b => basicCategoriesIds.Contains(b.Id)).Load();
             return _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDto>>(await _db.Categories.Include(c => c.BasicCategory).ToListAsync());
         }
 
